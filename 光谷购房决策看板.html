@@ -447,20 +447,26 @@ function renderSrc(){
 
 function fmtC(){ chartMonthly(); chart70(); renderTimeline(); renderSrc(); }
 
-/* ============ 标签页切换 ============ */
+/* ============ 标签页切换（支持 # 锚点直达） ============ */
 var tabs=document.querySelectorAll('.tab');
+function goto(k){
+  tabs.forEach(function(x){ x.classList.toggle('on', x.dataset.p===k); });
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.toggle('on', p.id===k); });
+}
 tabs.forEach(function(t){
   t.addEventListener('click', function(){
-    var k=t.dataset.p;
-    tabs.forEach(function(x){ x.classList.remove('on'); });
-    t.classList.add('on');
-    document.querySelectorAll('.page').forEach(function(p){
-      p.classList.toggle('on', p.id===k);
-    });
+    goto(t.dataset.p);
+    if(history.replaceState){ history.replaceState(null,'','#'+t.dataset.p); }
   });
 });
+function applyHash(){
+  var h=location.hash.replace('#','');
+  if(h && document.getElementById(h)){ goto(h); }
+}
+window.addEventListener('hashchange', applyHash);
 
 fmtC();
+applyHash();
 </script>
 </body>
 </html>
