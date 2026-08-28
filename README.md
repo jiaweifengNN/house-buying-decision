@@ -28,6 +28,7 @@
 | [03-跟进计划与看房清单.md](./03-跟进计划与看房清单.md) | 看房优先级清单、每月数据源、风险监控触发器 | [看房名单](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-watch) |
 | [04-重点户型对比分析.md](./04-重点户型对比分析.md) | 万家九城 106 / 宜居友家 113/90 户型横向对比（基于逯薇《小家》系列方法论） | [总览](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-overview) |
 | [05-市场动态与数据更新.md](./05-市场动态与数据更新.md) | 2026-08-28 增补：官方月度（5-7月）、8·21 土拍、70 城数据、政策核校、8·28 央行信贷新政 | [月度成交](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-month) |
+| [06-新政前后期房购房流程对比.md](./06-新政前后期房购房流程对比.md) | 8·28 信贷新政前后：期房全流程逐环节对比（首付/贷款/月供/交房保障/收房/还款/退房）+ 150 万测算 | [政策土拍](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-policy) |
 | [光谷购房决策看板.html](./光谷购房决策看板.html) | 可视化看板（单文件、图表齐全） | [看板在线版](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html) |
 
 ## 数据口径原则
@@ -42,5 +43,6 @@
 **更新记录**：
 - 2026-08-28：新增 `05-市场动态与数据更新.md`、`光谷购房决策看板.html`；更新 `00` 总报告与 `README`；仓库转为公开并启用 GitHub Pages，README 看板链接改为在线渲染地址
 - 2026-08-28（晚）：补录央行/金融监督管理总局《房地产信贷管理意见》（`05`-第八节）并同步看板（时间线+新政速览卡）
+- 2026-08-28（深夜）：新增 `06-新政前后期房购房流程对比.md`——针对大家·玖宸/宜居友家·嘉等 2028 交付期房，逐环节对比新政前后差别（首付/贷款/月供/交房保障/收房/还款/退房）+ 150 万总价测算 + 选盘新标准
 
 *仅供个人购房决策参考，不构成投资建议。*
