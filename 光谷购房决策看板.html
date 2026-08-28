@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>光谷购房决策看板 · 2026-08-29</title>
+<script type="text/javascript">
+  window._TMapSecurityConfig = {
+    serviceHost: 'http://127.0.0.1:__WB_HTTP_PORT__/_TMapService/_wbt/__WB_TMAP_SECRET__',
+  };
+</script>
+<script src="https://map.qq.com/api/gljs?v=1.exp"></script>
 <style>
   :root{
     --bg:#f1f5f9; --card:#ffffff; --line:#e2e8f0;
@@ -95,6 +101,8 @@
   .map-tip{font-size:12px; color:var(--mut); margin-top:6px;}
   .mnode{cursor:pointer;}
   .mnode:hover circle{r:7; stroke-width:2;}
+  .map-fallback{display:none;flex-direction:column;align-items:center;justify-content:center;height:460px;border-radius:8px;background:#f1f5f9;color:#64748b;text-align:center;gap:8px;}
+  .map-fallback-sub{font-size:12px;color:#94a3b8;}
 
   /* 结论卡 */
   .verdict{border-left:4px solid var(--blue); background:#f8faff; border-radius:0 12px 12px 0; padding:10px 14px; margin-top:6px;}
@@ -361,16 +369,21 @@
   <!-- 看房名单 -->
   <div class="page" id="p-watch">
     <div class="card">
-      <h2><span class="tag">🗺️ 板块分布图</span> 光谷看房标的示意（鼠标悬停看详情）</h2>
+      <h2><span class="tag">🗺️ 腾讯地图</span> 光谷看房标的真实分布（点击标记看详情）</h2>
       <div class="map-box">
-        <div id="ch-map" style="width:100%;"></div>
+        <div id="ch-map" style="width:100%;height:460px;border-radius:8px;overflow:hidden;background:#e8eef5;"></div>
+        <div id="mapFallback" class="map-fallback">
+          <div>⚠️ 腾讯地图未能加载（可能离线或网络受限）</div>
+          <div class="map-fallback-sub">下方"看房名单"表格仍有完整楼盘与价位信息</div>
+        </div>
         <div class="map-legend">
           <span><i style="background:#2563eb;"></i> 第一梯队（中心城北/关山）</span>
           <span><i style="background:#16a34a;"></i> 第二梯队（金融港/华科大）</span>
           <span><i style="background:#8b5cf6;"></i> 中心城南（谨慎）</span>
-          <span><i style="background:#94a3b8;"></i> 对照参考（花山/左岭）</span>
+          <span><i style="background:#94a3b8;"></i> 对照参考（花山）</span>
+          <span style="margin-left:auto;color:var(--mut);font-size:11px;">📍 坐标为板块锚点估值，个别新盘标记为最近地标</span>
         </div>
-        <div class="map-tip">示意性方位图（北上东右），非精确测绘；圆点位置反映各楼盘相对板块方位。悬停圆点查看楼盘、类型与目标价位。</div>
+        <div class="map-tip">真实腾讯地图瓦片，可拖动/缩放。点击楼盘标记弹出类型与目标价位。坐标基于公开地图锚点，看房前请用导航复核精确位置。</div>
       </div>
     </div>
 
@@ -551,62 +564,79 @@ function chart70(){
   el('ch-70city').innerHTML=s;
 }
 
-/* ============ 看房地图（示意性方位图） ============ */
+/* ============ 看房地图（腾讯地图 GL，真实瓦片） ============ */
 function chartMap(){
-  var W=720,H=480;
-  var sectors=[
-    {n:'花山',         x:470,y:30, w:170,h:75, c:'#d1fae5'},
-    {n:'华科大',       x:100,y:40, w:130,h:70, c:'#dbeafe'},
-    {n:'关山核心',     x:110,y:155,w:145,h:95, c:'#fef3c7'},
-    {n:'光谷核心',     x:255,y:185,w:90, h:60, c:'#fce7f3'},
-    {n:'中心城北',     x:340,y:145,w:175,h:100,c:'#e0e7ff'},
-    {n:'中心城南',     x:340,y:265,w:175,h:70, c:'#f3e8ff'},
-    {n:'金融港',       x:195,y:290,w:135,h:75, c:'#dcfce7'},
-    {n:'光谷南',       x:250,y:385,w:120,h:55, c:'#ffedd5'},
-    {n:'左岭/未来科技城',x:540,y:120,w:150,h:70,c:'#fee2e2'}
+  var box=el('ch-map');
+  if(!window.TMap){ box.style.display='none'; el('mapFallback').style.display='flex'; return; }
+  // 真实经纬度（GCJ-02，腾讯地图坐标系）。新盘为最近地标锚点估值，看房前用导航复核。
+  var P=[
+    // 第一梯队 蓝 中心城北/关山
+    {n:'联发·光合新澍', lat:30.4955, lng:114.4088, c:'#2563eb', tier:1, info:'新房四代宅 · 1.5-1.7万 · 49分钟日光 · 关山近7年首个日光盘'},
+    {n:'万科璞拾光屿', lat:30.4568, lng:114.4395, c:'#2563eb', tier:1, info:'新房五代住区 · 1.69-1.95万 · 已售罄，关注尾盘/退房'},
+    {n:'光谷润璟',     lat:30.4625, lng:114.4285, c:'#2563eb', tier:1, info:'新房高层 · ≈1.81万 · 同济光谷院区旁，7月成交168套'},
+    {n:'中建光谷之星', lat:30.4595, lng:114.4398, c:'#2563eb', tier:1, info:'二手高端 · ≈1.68万 · 政务中心/小米总部旁'},
+    {n:'联投驿园',     lat:30.4572, lng:114.4432, c:'#2563eb', tier:1, info:'二手刚改 · ≈1.25万 · 11号线直连'},
+    {n:'朗诗里程',     lat:30.4560, lng:114.4455, c:'#2563eb', tier:1, info:'二手刚需 · 8千-1万 · 观察止跌信号=买入信号'},
+    {n:'招商原颂',     lat:30.4985, lng:114.4068, c:'#2563eb', tier:1, info:'新房准四代 · 1.62万基准 · 双地铁'},
+    {n:'维佳·关山郡', lat:30.5008, lng:114.4050, c:'#2563eb', tier:1, info:'新房现房 · 1.4万基准 · 地铁口·K11对面'},
+    {n:'保利时代(南/北)', lat:30.4948, lng:114.4095, c:'#2563eb', tier:1, info:'二手学区 · 1.42-1.75万 · 光谷一小+实验'},
+    {n:'中建大公馆',   lat:30.4925, lng:114.4098, c:'#2563eb', tier:1, info:'新房+二手 · 光谷十小+实验 · 四期&二手对比'},
+    // 第二梯队 绿 金融港/华科大
+    {n:'现代森林小镇', lat:30.4735, lng:114.4168, c:'#16a34a', tier:2, info:'二手学区 · 1.15-1.34万 · 顶级学区+地铁'},
+    {n:'金地·铂翠',    lat:30.4755, lng:114.4162, c:'#16a34a', tier:2, info:'新房四代 · 1.24-1.35万 · 金融港销冠，94-154㎡'},
+    {n:'万科光谷锦曜', lat:30.4748, lng:114.4158, c:'#16a34a', tier:2, info:'二手次新 · 1.46万 · 盯成交量是否放大'},
+    {n:'泛悦城',       lat:30.5170, lng:114.4155, c:'#16a34a', tier:2, info:'二手标杆 · 1.67-1.78万 · 华科大板块最抗跌(预算250万+)'},
+    {n:'琨瑜府',       lat:30.5190, lng:114.4188, c:'#16a34a', tier:2, info:'二手 · 1.65-1.73万 · 华科大学区·品牌次新'},
+    // 中心城南 紫（谨慎）
+    {n:'绿地国际理想城', lat:30.4480, lng:114.4352, c:'#8b5cf6', tier:3, info:'二手 · 12,400 · 南区主力 · 持有8年+'},
+    {n:'北辰优+',     lat:30.4505, lng:114.4388, c:'#8b5cf6', tier:3, info:'二手 · 13,300 · 中心城'},
+    {n:'正荣紫阙台',   lat:30.4492, lng:114.4370, c:'#8b5cf6', tier:3, info:'二手 · 13,100 · ⚠️ 避开南区最南端边缘地块'},
+    // 对照 灰 花山
+    {n:'联投·花山河',  lat:30.5410, lng:114.4590, c:'#94a3b8', tier:4, info:'新房 · 毛坯13-13.5千/精装14-15千 · 花山TOD大盘'}
   ];
-  var nodes=[
-    // 第一梯队 蓝
-    {n:'万科璞拾光屿', x:380,y:165, c:'#2563eb', info:'新房五代 · 1.69-1.95万 · 已售罄'},
-    {n:'光谷润璟',     x:415,y:200, c:'#2563eb', info:'新房 · ≈1.81万 · 同济旁7月168套'},
-    {n:'光合新澍',     x:160,y:175, c:'#2563eb', info:'新房四代 · 1.5-1.7万 · 49分钟日光'},
-    {n:'中建光谷之星', x:460,y:180, c:'#2563eb', info:'二手高端 · ≈1.68万 · 小米总部旁'},
-    {n:'联投驿园',     x:365,y:215, c:'#2563eb', info:'二手刚改 · ≈1.25万 · 11号线直连'},
-    {n:'朗诗里程',     x:355,y:195, c:'#2563eb', info:'二手刚需 · 8千-1万 · 止跌=买入'},
-    {n:'招商原颂',     x:150,y:200, c:'#2563eb', info:'新房准四代 · 1.62万 · 双地铁'},
-    {n:'维佳关山郡',   x:185,y:215, c:'#2563eb', info:'新房现房 · 1.4万 · 地铁口'},
-    {n:'保利时代南',   x:130,y:185, c:'#2563eb', info:'二手学区 · 1.42-1.75万 · 双学区'},
-    {n:'中建大公馆',   x:120,y:165, c:'#2563eb', info:'新房+二手 · 光谷十小+实验'},
-    // 第二梯队 绿
-    {n:'现代森林小镇', x:215,y:305, c:'#16a34a', info:'二手学区 · 1.15-1.34万 · 顶级学区+地铁'},
-    {n:'金地·铂翠',    x:250,y:330, c:'#16a34a', info:'新房四代 · 1.24-1.35万 · 金融港销冠'},
-    {n:'万科光谷锦曜', x:270,y:300, c:'#16a34a', info:'二手次新 · 1.46万 · 盯成交量'},
-    {n:'泛悦城',       x:140,y:70,  c:'#16a34a', info:'二手标杆 · 1.67-1.78万 · 最抗跌(250万+)'},
-    // 中心城南 紫
-    {n:'绿地理想城',   x:360,y:285, c:'#8b5cf6', info:'二手 · 12,400 · 南区主力'},
-    {n:'北辰优+(南)',  x:410,y:300, c:'#8b5cf6', info:'二手 · 13,300'},
-    {n:'正荣紫阙台',   x:385,y:270, c:'#8b5cf6', info:'二手 · 13,100 · 避开最南端'},
-    // 对照 灰
-    {n:'联投花山河',   x:500,y:55,  c:'#94a3b8', info:'新房 · 14-15千 · 花山TOD'},
-    {n:'左岭新盘',     x:580,y:150, c:'#94a3b8', info:'新房 · 7-8.3千 · 远郊洼地'}
-  ];
-  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">';
-  // 方位标
-  s+='<text x="'+(W-12)+'" y="20" font-size="13" fill="#94a3b8" text-anchor="end">北 ↑</text>';
-  s+='<text x="'+(W-12)+'" y="'+(H-8)+'" font-size="11" fill="#cbd5e1" text-anchor="end">东 →</text>';
-  // 板块底色
-  sectors.forEach(function(sec){
-    s+='<rect x="'+sec.x+'" y="'+sec.y+'" width="'+sec.w+'" height="'+sec.h+'" rx="10" fill="'+sec.c+'" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>';
-    s+='<text x="'+(sec.x+sec.w/2)+'" y="'+(sec.y+16)+'" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">'+sec.n+'</text>';
-  });
-  // 楼盘节点
-  nodes.forEach(function(nd){
-    s+='<g class="mnode"><circle cx="'+nd.x+'" cy="'+nd.y+'" r="5.5" fill="'+nd.c+'" stroke="#fff" stroke-width="1.5"/>';
-    s+='<title>'+nd.n+'｜'+nd.info+'</title></g>';
-    s+='<text x="'+(nd.x+9)+'" y="'+(nd.y+3.5)+'" font-size="10" fill="#334155" font-weight="600">'+nd.n+'</text>';
-  });
-  s+='</svg>';
-  el('ch-map').innerHTML=s;
+  try{
+    var map=new TMap.Map('ch-map',{center:new TMap.LatLng(30.485,114.428),zoom:13,viewMode:'2D'});
+    // 自适应视野：包含所有楼盘
+    var bounds=new TMap.LatLngBounds();
+    P.forEach(function(p){ bounds.extend(new TMap.LatLng(p.lat,p.lng)); });
+    map.fitBounds(bounds,{padding:50});
+
+    // 按梯队分组的 marker 样式
+    var styles={
+      t1:new TMap.MarkerStyle({width:26,height:34,color:'#2563eb',anchor:{x:13,y:34}}),
+      t2:new TMap.MarkerStyle({width:26,height:34,color:'#16a34a',anchor:{x:13,y:34}}),
+      t3:new TMap.MarkerStyle({width:26,height:34,color:'#8b5cf6',anchor:{x:13,y:34}}),
+      t4:new TMap.MarkerStyle({width:22,height:30,color:'#94a3b8',anchor:{x:11,y:30}})
+    };
+    var geos=P.map(function(p,i){
+      var sid='t'+p.tier;
+      return {id:'m'+i, styleId:sid, position:new TMap.LatLng(p.lat,p.lng), properties:{title:p.n, content:p.info}};
+    });
+    var marker=new TMap.MultiMarker({map:map,styles:styles,geometries:geos});
+
+    // 标签（楼盘名）
+    var labelGeos=P.map(function(p,i){
+      return {id:'l'+i, styleId:'default', position:new TMap.LatLng(p.lat,p.lng), content:p.n};
+    });
+    new TMap.MultiLabel({
+      map:map,
+      styles:{ default:new TMap.LabelStyle({color:'#0f172a',size:11,offset:{x:16,y:-12},strokeColor:'#ffffff',strokeWidth:2,backgroundColor:'rgba(255,255,255,0.85)',borderColor:'#cbd5e1',borderWidth:1,padding:{top:2,bottom:2,left:4,right:4}}) },
+      geometries:labelGeos
+    });
+
+    // 信息窗（点击 marker 弹出）
+    var info=new TMap.InfoWindow({map:map,position:new TMap.LatLng(P[0].lat,P[0].lng),offset:{x:0,y:-38},visible:false});
+    marker.on('click',function(e){
+      var geo=e.geometry;
+      var p=P[parseInt(geo.id.slice(1))];
+      info.open();
+      info.setPosition(new TMap.LatLng(p.lat,p.lng));
+      info.update({content:'<div style="padding:6px 4px;max-width:260px;"><div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:3px;">'+p.n+'</div><div style="font-size:12px;color:#475569;line-height:1.5;">'+p.info+'</div></div>'});
+    });
+    map.on('click',function(){ info.close(); });
+  }catch(e){
+    box.style.display='none'; el('mapFallback').style.display='flex';
+  }
 }
 
 /* ============ 时间线 ============ */
@@ -642,13 +672,24 @@ function renderSrc(){
   el('src-list').innerHTML=s.map(function(x){return '<div>· '+x+'</div>';}).join('');
 }
 
-function fmtC(){ chartMonthly(); chart70(); chartMap(); renderTimeline(); renderSrc(); }
+function fmtC(){ chartMonthly(); chart70(); renderTimeline(); renderSrc(); }
+
+/* 腾讯地图需在容器可见时才初始化（GL 渲染依赖容器尺寸） */
+var _mapInited=false;
+function initMapIfNeeded(){
+  if(_mapInited) return;
+  _mapInited=true;
+  // 等待 TMap 脚本加载完成
+  if(window.TMap){ chartMap(); }
+  else{ var t=setInterval(function(){ if(window.TMap){ clearInterval(t); chartMap(); } },200); setTimeout(function(){ clearInterval(t); },5000); }
+}
 
 /* ============ 标签页切换（支持 # 锚点直达） ============ */
 var tabs=document.querySelectorAll('.tab');
 function goto(k){
   tabs.forEach(function(x){ x.classList.toggle('on', x.dataset.p===k); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.toggle('on', p.id===k); });
+  if(k==='p-watch'){ setTimeout(initMapIfNeeded,50); }
 }
 tabs.forEach(function(t){
   t.addEventListener('click', function(){
