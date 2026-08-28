@@ -2,33 +2,33 @@
 
 武汉东湖高新区（光谷）购房决策持续跟进仓库。目标：2027 年（最晚 2028 年）在光谷买房。
 
-## 📊 可视化看板（推荐先点开这里）
+## 📊 可视化看板（在线渲染，点开即看）
 
-单文件看板 `光谷购房决策看板.html`：全部图表、数据、政策时间线内嵌在一个文件里，**无需联网、双击即开**。下面的链接会直接跳转到看板对应分页（锚点直达）：
+> ⭐ 已通过 **GitHub Pages** 在线渲染，在 GitHub 网页上点击下面的链接，会**直接打开可交互的看板页面**（无需登录、无需下载）。
+> 基础地址：`https://jiaweifengnn.github.io/house-buying-decision/光谷购房决策看板.html`
 
-| 想看什么 | 直达链接 |
-|---------|---------|
-| 📊 总览与决策结论 | [看板·总览](./光谷购房决策看板.html#p-overview) |
-| 🗺️ 板块价格与新房网签 | [看板·板块价格](./光谷购房决策看板.html#p-price) |
-| 📈 月度成交图表（官方1-7月） | [看板·月度成交](./光谷购房决策看板.html#p-month) |
-| 📋 政策与土拍时间线 | [看板·政策土拍](./光谷购房决策看板.html#p-policy) |
-| 🔍 分梯队看房名单 | [看板·看房名单](./光谷购房决策看板.html#p-watch) |
-| 📑 数据来源与可信度 | [看板·数据来源](./光谷购房决策看板.html#p-src) |
+| 想看什么 | 在线直达链接 |
+|---------|-------------|
+| 📊 总览与决策结论 | [看板·总览（在线）](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-overview) |
+| 🗺️ 板块价格与新房网签 | [看板·板块价格（在线）](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-price) |
+| 📈 月度成交图表（官方1-7月） | [看板·月度成交（在线）](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-month) |
+| 📋 政策与土拍时间线 | [看板·政策土拍（在线）](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-policy) |
+| 🔍 分梯队看房名单 | [看板·看房名单（在线）](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-watch) |
+| 📑 数据来源与可信度 | [看板·数据来源（在线）](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-src) |
 
-> ⚠️ 说明：在 **GitHub 网页端**点 `.html` 链接默认展示的是源码；要看到**渲染后的看板**，请下载文件后在本地双击打开，或用 VSCode / Typora 的 Markdown 预览点击链接（会用默认浏览器打开）。
-> 本机绝对路径：`D:\【Sylas】\【zcode_personal】\【personal】maifang\house-buying-decision\光谷购房决策看板.html`
+**本机打开（离线）**：把 `光谷购房决策看板.html` 下载到本地双击即可（文件与本文档在同一目录）。
 
 ## 文件结构
 
-| 文件 | 内容 | 对应看板分页 |
-|------|------|------------|
-| [00-光谷购房分析总报告.md](./00-光谷购房分析总报告.md) | 板块框架、价格趋势、2027 预测、时点判断 | [总览](./光谷购房决策看板.html#p-overview) |
-| [01-二手房小区成交明细.md](./01-二手房小区成交明细.md) | 各板块小区真实成交价（贝壳成交记录/购房荟月报口径） | [板块价格](./光谷购房决策看板.html#p-price) |
-| [02-新房楼盘网签明细.md](./02-新房楼盘网签明细.md) | 在售楼盘网签实价（克而瑞/普睿数智监测口径） | [板块价格](./光谷购房决策看板.html#p-price) |
-| [03-跟进计划与看房清单.md](./03-跟进计划与看房清单.md) | 看房优先级清单、每月数据源、风险监控触发器 | [看房名单](./光谷购房决策看板.html#p-watch) |
-| [04-重点户型对比分析.md](./04-重点户型对比分析.md) | 万家九城 106 / 宜居友家 113/90 户型横向对比（基于逯薇《小家》系列方法论） | [总览](./光谷购房决策看板.html#p-overview) |
-| [05-市场动态与数据更新.md](./05-市场动态与数据更新.md) | 2026-08-28 增补：官方月度成交（5-7月）、8·21 土拍、70 城 7 月数据、政策核校、挂牌量口径更正 | [月度成交](./光谷购房决策看板.html#p-month) |
-| [光谷购房决策看板.html](./光谷购房决策看板.html) | 可视化看板（单文件，全部图表与数据） | 锚点跳转见上方 |
+| 文件 | 内容 | 对应看板分页（在线） |
+|------|------|---------------------|
+| [00-光谷购房分析总报告.md](./00-光谷购房分析总报告.md) | 板块框架、价格趋势、2027 预测、时点判断 | [总览](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-overview) |
+| [01-二手房小区成交明细.md](./01-二手房小区成交明细.md) | 各板块小区真实成交价（贝壳成交记录/购房荟月报口径） | [板块价格](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-price) |
+| [02-新房楼盘网签明细.md](./02-新房楼盘网签明细.md) | 在售楼盘网签实价（克而瑞/普睿数智监测口径） | [板块价格](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-price) |
+| [03-跟进计划与看房清单.md](./03-跟进计划与看房清单.md) | 看房优先级清单、每月数据源、风险监控触发器 | [看房名单](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-watch) |
+| [04-重点户型对比分析.md](./04-重点户型对比分析.md) | 万家九城 106 / 宜居友家 113/90 户型横向对比（基于逯薇《小家》系列方法论） | [总览](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-overview) |
+| [05-市场动态与数据更新.md](./05-市场动态与数据更新.md) | 2026-08-28 增补：官方月度（5-7月）、8·21 土拍、70 城数据、政策核校 | [月度成交](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html#p-month) |
+| [光谷购房决策看板.html](./光谷购房决策看板.html) | 可视化看板（单文件、图表齐全） | [看板在线版](https://jiaweifengnn.github.io/house-buying-decision/%E5%85%89%E8%B0%B7%E8%B4%AD%E6%88%BF%E5%86%B3%E7%AD%96%E7%9C%8B%E6%9D%BF.html) |
 
 ## 数据口径原则
 
@@ -37,11 +37,9 @@
 
 ## 更新约定
 
-每月月底更新成交数据；出现重大事件（土拍、政策、风险触发器）随时更新。每次更新后同步推送本仓库。
-
-自 2026-08-28 起，月度数值优先与「武汉市住房和城市更新局」官网月度简报核对（见 `05` 文件第五节），挂牌量为市场口径时单独标注。
+每月月底更新成交数据；出现重大事件（土拍、政策、风险触发器）随时更新。每次更新后同步推送 GitHub（看板在线版随之刷新）。
 
 **更新记录**：
-- 2026-08-28：新增 `05-市场动态与数据更新.md`、`光谷购房决策看板.html`；更新 `00` 总报告（记录与口径更正）；README 增加可视化直达链接
+- 2026-08-28：新增 `05-市场动态与数据更新.md`、`光谷购房决策看板.html`；更新 `00` 总报告与 `README`；仓库转为公开并启用 GitHub Pages，README 看板链接改为在线渲染地址
 
 *仅供个人购房决策参考，不构成投资建议。*
