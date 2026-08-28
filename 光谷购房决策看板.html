@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光谷购房决策看板 · 2026-08-28</title>
+<style>
+  :root{
+    --bg:#f1f5f9; --card:#ffffff; --line:#e2e8f0;
+    --blue:#2563eb; --blue-d:#1d4ed8; --cyan:#0ea5e9; --orange:#f59e0b;
+    --red:#ef4444; --green:#16a34a; --purple:#8b5cf6; --ink:#0f172a; --mut:#64748b;
+    --ok:#dcfce7; --warn:#fef9c3; --err:#fee2e2;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC","Helvetica Neue",Arial,sans-serif;
+       background:var(--bg); color:var(--ink); line-height:1.55;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 20px 60px;}
+
+  /* 头部 */
+  header{background:linear-gradient(135deg,#0f2347 0%,#163a6b 55%,#1e5aa8 100%); color:#fff;
+         padding:26px 0 18px; border-bottom:4px solid var(--orange);}
+  .h-in{max-width:1180px; margin:0 auto; padding:0 20px;}
+  .h-title{font-size:26px; font-weight:800; letter-spacing:1px;}
+  .h-sub{margin-top:6px; font-size:13px; color:#cfe0ff;}
+  .h-meta{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px;}
+  .chip{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25);
+        padding:3px 10px; border-radius:999px;}
+  .chip b{color:#fff;} .chip span{color:#dbe7ff;}
+
+  /* 顶部关键数字 */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 14px;
+        box-shadow:0 1px 3px rgba(15,23,42,.05);}
+  .stat .k{font-size:12px; color:var(--mut); margin-bottom:4px;}
+  .stat .v{font-size:20px; font-weight:800;}
+  .stat .s{font-size:11px; color:var(--mut); margin-top:2px;}
+  .up{color:var(--red);} .down{color:var(--green);}
+
+  /* 标签页 */
+  .tabs{display:flex; gap:8px; margin:14px 0 16px; flex-wrap:wrap;}
+  .tab{padding:8px 16px; border-radius:999px; border:1px solid var(--line); background:var(--card);
+       cursor:pointer; font-size:14px; font-weight:600; color:var(--mut); user-select:none;}
+  .tab:hover{border-color:var(--blue); color:var(--blue);}
+  .tab.on{background:var(--blue); border-color:var(--blue); color:#fff;}
+  .page{display:none;} .page.on{display:block;}
+
+  /* 卡片与区块 */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px;
+        padding:16px 18px; margin-bottom:16px; box-shadow:0 1px 3px rgba(15,23,42,.05);}
+  .card h2{font-size:16px; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  .card h2 .tag{font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; background:#eef2ff; color:var(--blue);}
+  .card h3{font-size:14px; margin:14px 0 8px; color:var(--blue-d);}
+  .note{font-size:12px; color:var(--mut); margin-top:8px;}
+  .hl{color:var(--blue-d); font-weight:700;}
+  .hlr{color:var(--red); font-weight:700;}
+  .hlg{color:var(--green); font-weight:700;}
+
+  /* 表格 */
+  table{width:100%; border-collapse:collapse; font-size:13px; margin-top:8px;}
+  th,td{border-bottom:1px solid var(--line); padding:7px 8px; text-align:center; vertical-align:middle;}
+  th{background:#f8fafc; font-weight:700; color:#334155; white-space:nowrap;}
+  td.l,th.l{text-align:left;}
+  tr:hover td{background:#f8fafc;}
+  .badge{display:inline-block; font-size:11px; font-weight:700; padding:1px 8px; border-radius:999px;}
+  .b-green{background:var(--ok); color:#166534;}
+  .b-red{background:var(--err); color:#991b1b;}
+  .b-yellow{background:var(--warn,#fef9c3); color:#854d0e;}
+  .b-blue{background:#dbeafe; color:#1e40af;}
+  .b-gray{background:#f1f5f9; color:#475569;}
+
+  /* 时间线 */
+  .tl{position:relative; margin:8px 0 0 8px; padding-left:22px;}
+  .tl::before{content:""; position:absolute; left:5px; top:4px; bottom:4px; width:2px; background:var(--line);}
+  .tl .it{position:relative; margin-bottom:14px;}
+  .tl .it::before{content:""; position:absolute; left:-22px; top:5px; width:10px; height:10px; border-radius:50%;
+                  background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 2px var(--blue);}
+  .tl .it.warn::before{background:var(--orange); box-shadow:0 0 0 2px var(--orange);}
+  .tl .it.done::before{background:var(--line); box-shadow:0 0 0 2px var(--line);}
+  .tl .dt{font-size:12px; color:var(--blue-d); font-weight:700;}
+  .tl .tt{font-size:13px; font-weight:600; margin:1px 0;}
+  .tl .de{font-size:12.5px; color:#475569;}
+  .tl .de b{color:var(--ink);}
+
+  /* 结论卡 */
+  .verdict{border-left:4px solid var(--blue); background:#f8faff; border-radius:0 12px 12px 0; padding:10px 14px; margin-top:6px;}
+  .verdict.warn{border-left-color:var(--orange); background:#fffbf0;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:900px){.stats{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;}}
+  footer{margin-top:20px; font-size:12px; color:var(--mut); text-align:center;}
+  .src{font-size:11.5px; color:var(--mut); line-height:1.7;}
+  svg text{font-family:inherit;}
+</style>
+</head>
+<body>
+<header>
+  <div class="hero-in">
+    <div class="h-title">🏠 光谷购房决策看板</div>
+    <div class="h-meta">
+      <div class="chip">数据基准：<b>2026-07月度官方数据 + 2026-08-27 事件更新</b></div>
+      <div class="chip">聚焦：<span>东湖高新区 · 2027年（最晚2028年）上车</span></div>
+      <div class="chip">原则：<span>只信成交价，不信挂牌价</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="k">光谷上半年新房成交（官方）</div><div class="v">9,423 <span style="font-size:13px">套</span></div><div class="s">居全市第一 · 占全市 20.6% · 同比约 +80%</div></div>
+    <div class="stat"><div class="k">武汉 7月新房价格（70城）</div><div class="v hlr">+0.1%</div><div class="s">环比连续3个月上行 · 同比 -2.1%</div></div>
+    <div class="stat"><div class="k">8·21 光谷地块溢价率</div><div class="v hlr">48.9%</div><div class="s">楼面价 14,738 元/㎡ · 今年全市最高</div></div>
+    <div class="stat"><div class="k">5年期LPR（2026-08-20）</div><div class="v">3.5%</div><div class="s">连续15个月不变 · 公积金首套 2.6%</div></div>
+    <div class="stat"><div class="k">武汉二手挂牌量（官方口径）</div><div class="v">19.3 <span style="font-size:13px">万套</span></div><div class="s">2026年4月底（房管局）· 市场口径约20万</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" data-p="p-overview">📊 总览决策</div>
+    <div class="tab" data-p="p-price">🗺️ 板块价格</div>
+    <div class="tab" data-p="p-month">📈 月度成交</div>
+    <div class="tab" data-p="p-policy">📋 政策·土拍时间线</div>
+    <div class="tab" data-p="p-watch">🔍 看房名单</div>
+    <div class="tab" data-p="p-src">📑 数据来源</div>
+  </div>
+
+  <!-- 总览 -->
+  <div class="page on" id="p-overview">
+    <div class="card">
+      <h2><span class="tag">结论</span> 2027年出手，核心区不拖过 2027 年底</h2>
+      <div class="verdict">第一梯队（优先）：<b>光谷中心城·北区</b>（配套已落地，流通性顶尖）与<b>关山核心</b>（学区+商业最成熟）。二手成交基准：刚需 1.1-1.25万、刚改 1.25-1.5万、高端 1.6-1.78万 元/㎡。</div>
+      <div class="verdict warn" style="margin-top:8px;">⚠️ 已核实 2026-06-30 终止"1.5%新城区补助"；当前可享受：商贷<b>按区认首套</b>（至2026-12-31）、公积金优惠（挂牌房不计套数，至2027-06-30）、商办 1% 补助（至12-31）。签约前一律找售楼处核对当期细则。</div>
+      <div class="verdict warn" style="margin-top:8px;">⚠️ 口径更正：原报告“二手挂牌破40万套”经官方核验为 <b>19.3 万套（2026-04底，房管局）</b>；二手仍是买方市场，议价空间存在，但无需按 40万 恐慌定价。</div>
+      <div class="note">三大积极信号互相印证：①核心区土拍高溢价（8·21 楼面 14,738）；②70城 7 月武汉新房环比 +0.1%（连续3个月）；③四代宅首开去化 ≥80%（光谷、汉阳、武昌核心）。结论由“等一等”改为“核心区不拖过 2027 年底”。</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">市场结构</span> 2026年正在发生什么</h2>
+      <table>
+        <tr><th class="l">维度</th><th>观察</th><th>数据</th><th>对决策</th></tr>
+        <tr><td class="l">新房</td><td>四代宅革命</td><td>上半年武汉项目销售十强中 9 席为四代宅；新品首开去化 ≥70%</td><td>新房看四代宅；三代宅二手持续承压</td></tr>
+        <tr><td class="l">二手房</td><td>以价换量</td><td>上半年 5.8 万套（中指）· 挂牌 19.3 万套（官方）</td><td>外围二手可议价，核心区次新企稳</td></tr>
+        <tr><td class="l">土地</td><td>供应收缩</td><td>上半年出让 19 宗 /144.5万㎡，同比 -33.9%</td><td>核心区新房未来供应边际收紧</td></tr>
+        <tr><td class="l">产业</td><td>AI+光电子爆发</td><td>高技术制造业 +65.7%；电子设备制造 +90.8%（武汉上半年 GDP 11,236亿，+5.7%）</td><td>人才流入 → 光谷购买力持续</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">⚠️ 风险监控</span> 以下信号出现时，重估计划</h2>
+      <div class="kpis">
+        <b>■ 光谷二手月成交跌破 400 套</b>（流动性恶化）<br>
+        <b>■ 核心区四代宅首开去化率跌破 50%</b>（转买方信号）<br>
+        <b>■ 宅地流拍 / 底价成交</b>（8月高溢价反转信号）<br>
+        <b>■ AI/光电子裁员潮</b>、<b>政策补贴退出无接续</b>、<b>学区大改</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- 板块价格 -->
+  <div class="page" id="p-price">
+    <div class="card">
+      <h2><span class="tag">二手成交基准</span> 光谷 8 大板块（2026年6月 贝壳成交 + 7-8月监测）</h2>
+      <table>
+        <tr><th>板块</th><th>6月成交</th><th>套均总价</th><th>成交单价区间</th><th>趋势</th></tr>
+        <tr><td>光谷中心城</td><td>约167套（最高）</td><td>122.8万</td><td>6,455 - 16,102</td><td>分化：次新稳、老盘跌</td></tr>
+        <tr><td>关山核心</td><td>约140套</td><td>137.5万</td><td>8,278 - 19,334</td><td>学区盘企稳</td></tr>
+        <tr><td>金融港</td><td>约65套</td><td>108.5万</td><td>7,119 - 17,144</td><td>学区溢价坚挺</td></tr>
+        <tr><td>华科大</td><td>约63套</td><td>131.2万</td><td>16,459 - 17,825</td><td>全光谷最抗跌</td></tr>
+        <tr><td>花山</td><td>约59套</td><td>107.6万</td><td>5,038 - 13,198</td><td>洼地，继续磨底</td></tr>
+        <tr><td>中心城北</td><td>—</td><td>—</td><td>约 10,700 - 17,500</td><td>刚需/刚改/高端三档齐全</td></tr>
+        <tr><td>南三环</td><td>约29套</td><td>119.8万</td><td>6,957 - 13,375</td><td>刚需以价换量</td></tr>
+        <tr><td>左岭/未来科技城</td><td>量小</td><td>—</td><td>8,500 - 10,000</td><td>仅本地就业者</td></tr>
+      </table>
+      <div class="note">光谷二手整体成交均价约 10,352 元/㎡（6月）/ 约1.04万（7月，市场监测）；光谷东板块挂牌参考13,203元/㎡（7月安居客，❌挂牌口径）。新房成交价为二手 1.5-1.8倍（新房集中在四代宅改善产品）。</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">新房网签基准</span> 主力盘真实网（2026年5-8月）</h2>
+      <table>
+        <tr><th>板块</th><th>楼盘</th><th>产品</th><th>网签成交均价</th><th>热度</th></tr>
+        <tr><td>大关山</td><td>联发·光合新澍</td><td>四代宅 69-118㎡</td><td>首开日光（约1.5-1.7万档）</td><td>6·14 首开 160套 49分钟售罄，12天加推累计成交 249套</td></tr>
+        <tr><td>大关山</td><td>招商原颂</td><td>准四代</td><td>16,224（毛坯）</td><td>周均认购16-19套</td></tr>
+        <tr><td>大关山</td><td>光谷壹号院</td><td>精装高层</td><td>20,028</td><td>7月成交 131套/3.23亿；11月交付</td></tr>
+        <tr><td>中心城北</td><td>万科璞拾光屿</td><td>五代住区</td><td>16,924-19,542</td><td>上半年网签474套全武汉TOP3，已售罄</td></tr>
+        <tr><td>中心城北</td><td>光谷润璟</td><td>高层</td><td>约18,110</td><td>7月成交168套/3.54亿</td></tr>
+        <tr><td>中心城北</td><td>深业翠微谷</td><td>小高层</td><td>13,866（毛坯）</td><td>临政务中心</td></tr>
+        <tr><td>花山</td><td>联投花山河</td><td>高层</td><td>毛坯13-13.5千</td><td>刚需主力</td></tr>
+        <tr><td>左岭</td><td>板块新盘</td><td>—</td><td>7,000-8,325</td><td>远郊洼地</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 月度成交 -->
+  <div class="page" id="p-month">
+    <div class="card">
+      <h2><span class="tag">官方</span> 武汉市住和城市更新局 · 月度新建商品住房（2026年1-7月）</h2>
+      <div id="ch-monthly" style="width:100%;"></div>
+      <table style="margin-top:12px;">
+        <tr><th>月份</th><th>光谷（套）</th><th>全市（套）</th><th>光谷占全市</th></tr>
+        <tr><td>1月</td><td>598</td><td>3,400</td><td>17.6%</td></tr>
+        <tr><td>2月</td><td>323</td><td>2,360</td><td>13.7%</td></tr>
+        <tr><td>3月</td><td>4,046</td><td>12,190</td><td>33.2%</td></tr>
+        <tr><td>4月</td><td>781</td><td>5,538</td><td>14.1%</td></tr>
+        <tr><td>5月</td><td>1,724</td><td>9,243</td><td>18.7%</td></tr>
+        <tr><td>6月</td><td>1,951</td><td>12,909</td><td>15.1%</td></tr>
+        <tr><td>7月</td><td>1,330</td><td>7,725</td><td>17.2%</td></tr>
+      </table>
+      <div class="note">上半年光谷合计 <b>9,423 套</b>（占全市约20.8%，与中指院口径一致）；全市上半年约 45,641 套（同比 +2.8%）；8月17-23日当周全市 2,077 套（环比 +2.7%，房天下周报）。</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">国家统计局·70城</span> 武汉房价月度环比（2026年4-7月）</h2>
+      <div id="ch-70city" style="width:100%;"></div>
+      <div class="note">新房：4月持平 → 5月 +0.2% → 6月 +0.1% → 7月 +0.1%（连续3个月上行）；二手：4月 +0.1% → 5月 -0.4% → 6月 -0.1% → 7月 持平（降幅收窄）。同比：新房 -2.1%、二手 -7.0%（7月）。</div>
+    </div>
+  </div>
+
+  <!-- 政策与土拍 -->
+  <div class="page" id="p-policy">
+    <div class="card">
+      <h2><span class="tag">时间线</span> 2026年重要节点（可继续往下滚动阅读）</h2>
+      <div class="tl" id="timeline"></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2><span class="tag">汉七条 · 2026-04-30</span> 官方解读</h2>
+        <table>
+          <tr><th>条款</th><th>内容</th><th>有效期</th></tr>
+          <tr><td>①按区认首套</td><td>商贷购新建商品房，所在区无房按首套</td><td>至 2026-12-31</td></tr>
+          <tr><td>②公积金套数</td><td>已挂牌一套不计入套数</td><td>至 2027-06-30</td></tr>
+          <tr><td>③存量房贷比</td><td>首套≤80%、二套≤70%</td><td>即日</td></tr>
+          <tr><td>④异地公积金</td><td>全国开放，免户籍</td><td>即日</td></tr>
+          <tr><td>⑤新城区补助</td><td>首套1.5% / 二套1%</td><td class="hlr">已截止（6-30）</td></tr>
+          <tr><td>⑥商办补助</td><td>个人购新建商办 1%</td><td>至 2026-12-31</td></tr>
+          <tr><td>⑦多子女政策</td><td>延长适用（原文第五条）</td><td>至 2027-12-31</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h2><span class="tag">土拍</span> 8·21 光谷地块（官方公告）</h2>
+        <div class="verdict" style="margin-top:8px;">
+          <b>P(2026)063地块</b>（东湖高新区步行街以南、加阳路以东）<br>
+          面积 2.33 公顷 · 建面 5.04万㎡ · <b>122 轮竞价</b><br>
+          成交价 <b>7.428 亿</b> · 楼面均价 <b>14,738 元/㎡</b> · 溢价率 <b>48.9%</b><br>
+          竞得：十堰汉成置业（深圳汉成盛泽）· 全场 9 家头部房企（华润、绿城、保利、建发等）
+        </div>
+        <div class="note" style="margin-top:8px;">含义：楼面价 1.47 万 → 未来售价大概率 2万+/㎡；与当前中心城北四代宅网签（1.7-1.95万）形成倒挂支撑——核心区看涨“真金白银投票”。</div>
+        <hr style="border:none;border-top:1px dashed var(--line);margin:12px 0;">
+        <div class="verdict">上半年全市宅地仅成交 19 宗（建面 -33.9%、金额 -51.8%）；6月光谷 P(2026)032 地块楼面 11,169 元/㎡（溢价 21%）；7月末以来“连续三场土拍溢价”是重要拐点信号。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2><span class="tag">信贷</span> 利率现状（2026-08-20 确认）</h2>
+      <table>
+        <tr><th>品种</th><th>利率</th><th>备注</th></tr>
+        <tr><td>5年期 LPR</td><td>3.5%</td><td>连续 15 个月不变（2026-08-20）</td></tr>
+        <tr><td>1年期 LPR</td><td>3.0%</td><td>同上</td></tr>
+        <tr><td>公积金首套（5年+）</td><td>2.6%</td><td>月供参考：100万/30年 ≈ 4,003 元</td></tr>
+        <tr><td>公积金二套（5年+）</td><td>3.075%</td><td>月供参考：100万/30年 ≈ 4,257 元（30年差约9.1万）</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 看房名单 -->
+  <div class="page" id="p-watch">
+    <div class="card">
+      <h2><span class="tag">第一梯队</span> 光谷中心城北 · 关山</h2>
+      <table>
+        <tr><th>标的</th><th>类型</th><th>目标价位</th><th>备注</th></tr>
+        <tr><td>万科璞拾光屿</td><td>新房（五代住区）</td><td>1.69-1.95万</td><td>已售罄，关注尾盘/退房</td></tr>
+        <tr><td>光谷润璟</td><td>新房</td><td>≈1.81万</td><td>同济光谷院区旁，7月168套</td></tr>
+        <tr><td>光合新澍（加推）</td><td>新房四代宅</td><td>日光档 1.5-1.7万</td><td>得房率110-122%，加推即登记</td></tr>
+        <tr><td>中建光谷之星</td><td>二手高端</td><td>≈1.68万</td><td>政务中心/小米总部旁</td></tr>
+        <tr><td>联投驿园</td><td>二手刚改</td><td>≈1.25万</td><td>11号线直连</td></tr>
+        <tr><td>朗诗里程</td><td>二手刚需</td><td>8千-1万</td><td>观察止跌信号 = 买入信号</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2><span class="tag">第二梯队</span> 关山 · 金融港 · 华科大</h2>
+      <table>
+        <tr><th>标的</th><th>类型</th><th>目标价位</th><th>备注</th></tr>
+        <tr><td>招商原颂</td><td>新房准四代</td><td>1.62万基准</td><td>双地铁</td></tr>
+        <tr><td>维佳关山郡</td><td>新房现房</td><td>1.4万基准</td><td>地铁口·现房</td></tr>
+        <tr><td>保利时代南区</td><td>二手学区</td><td>1.42-1.75万</td><td>光谷实小+实验</td></tr>
+        <tr><td>中建大公馆</td><td>新房+二手</td><td>—</td><td>四期&二手对比</td></tr>
+        <tr><td>现代森林小镇</td><td>二手学区</td><td>1.15-1.34万</td><td>顶级学区+地铁</td></tr>
+        <tr><td>金地·铂翠</td><td>新房四代</td><td>1.24-1.35万（8月加推待核实）</td><td>金融港销冠，94-154㎡</td></tr>
+        <tr><td>万科光谷锦曜</td><td>二手次新</td><td>1.46万</td><td>盯成交量是否放大</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2><span class="tag">对照</span> 不在重点（感知用）</h2>
+      <div class="note">花山·联投花山河（新房14-15千）；左岭（远郊现状）；筛查时对照“挂牌价-成交价差”纪律：看房先问同小区近3个月成交价，挂牌超本表上限 15% 按成交价砍。</div>
+    </div>
+  </div>
+
+  <!-- 数据来源 -->
+  <div class="page" id="p-src">
+    <div class="card">
+      <h2><span class="tag">可信度体系</span> 数据分级（沿用项目约定）</h2>
+      <table>
+        <tr><th>标签</th><th>含义</th><th>可信度</th></tr>
+        <tr><td>✅ 网签成交</td><td>房管备案真实成交（克而瑞/普睿/购房荟）</td><td>★★★★★</td></tr>
+        <tr><td>✅ 贝壳成交</td><td>贝壳平台已成交记录</td><td>★★★★★</td></tr>
+        <tr><td>⚠️ 市场监测</td><td>机构监测板块均价（购房荟/贝壳研究院）</td><td>★★★★☆</td></tr>
+        <tr><td>❌ 挂牌参考</td><td>挂牌/估价（安居客/58）仅作定位</td><td>★★☆☆☆</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2><span class="tag">来源清单</span> 2026-08-28 检索核验</h2>
+      <div class="src" id="src-list"></div>
+    </div>
+  </div>
+
+  <footer>仅供个人购房决策参考，不构成投资建议 · 数据基准日 2026-08-28 · 随项目 00-05 文档同步更新</footer>
+</div>
+
+<script>
+/* ============ 数据 ============ */
+var monthData = [
+  {m:'1月', gg:598,   wh:3400,  pct:17.6},
+  {m:'2月', gg:323,   wh:2360,  pct:13.7},
+  {m:'3月', gg:4046,  wh:12190, pct:33.2},
+  {m:'4月', gg:781,   wh:5538,  pct:14.1},
+  {m:'5月', gg:1724,  wh:9243,  pct:18.7},
+  {m:'6月', gg:1951,  wh:12909, pct:15.1},
+  {m:'7月', gg:1330,  wh:7725,  pct:17.2}
+];
+var city70 = [
+  {m:'4月', xf:0.0, es:0.1},
+  {m:'5月', xf:0.2, es:-0.4},
+  {m:'6月', xf:0.1, es:-0.1},
+  {m:'7月', xf:0.1, es:0.0}
+];
+var timeline = [
+  {d:'2026-01-03', t:'公积金中心通知：异地贷款扩至全国、额度阶段性上浮20%、提取余额付首付', cls:'done', de:'公积金中心官网'},
+  {d:'2026-03-03前后', t:'单月新房成交全市 12,190 套，光谷 4,046 套（占33%）', cls:'done', de:'官方月度简报，3月为上半年峰值'},
+  {d:'2026-04-30', t:'汉七条发布/印发（见左侧解读卡）', cls:'', de:'武汉住后局/财政局/公积金中心联合发文'},
+  {d:'2026-05-01~06-30', t:'新城区购房补助窗口（首套1.5%/二套1%）⚠️ 已在6月30日截止', cls:'warn', de:'涉及东湖高新等八大新城'},
+  {d:'2026-06-14', t:'联发·光合新澍首开 160 套 49 分钟售罄（关山近7年首个日光盘）', cls:'', de:'12天后紧急加推，累计成交249套'},
+  {d:'2026-07-03', t:'官方6月数据：全市商品住宅 12,909 套（环比+39.7%）', de:'东湖高新 1,951 套'},
+  {d:'2026-08-04', t:'官方7月数据：全市 7,725 套（环比-40.2%），东湖高新 1,330 套', de:'17.2%，淡季回落'},
+  {d:'2026-08-17', t:'国家统计局 70 城：武汉新房环比+0.1%（连续3个月上行），二手环比持平', de:'同比新房-2.1% / 二手-7.0%'},
+  {d:'2026-08-20', t:'LPR 公布：1年期3.0%、5年期3.5%，连续 15 个月不变', cls:'done', de:'武汉金融局同步转载'},
+  {d:'2026-08-21', t:'第14次土拍：P(2026)063 光谷地块 122轮竞价、溢价 48.9%、楼面价 14,738 元/㎡（今年最高）', cls:'warn', de:'官方：连续三场土拍“场场溢价”'},
+  {d:'2026-08-25~27', t:'补贴窗口结束后新政进入落地兑现期；8月17-23日周成交 2,077 套（环比+2.7%）', cls:'warn', de:'新一阶段操作窗口（12-31 前按区认首套）'}
+];
+
+/* ============ 图表 ============ */
+function el(id){ return document.getElementById(id); }
+function fmt(n){ return n.toLocaleString('zh-CN'); }
+
+/* 月度成交：双 Y 轴折线（全市/光谷）+ 占比 */
+function chartMonthly(){
+  var W=900,H=300,L=58,R=64,T=16,B=34;
+  var plotW=W-L-R, plotH=H-T-B;
+  var maxV=14000, maxP=40;
+  var x=function(i){ return L + plotW*i/(monthData.length-1); };
+  var y1=function(v){ return T + plotH*(1-v/maxV); };
+  var y2=function(p){ return T + plotH*(1-p/maxP); };
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">';
+  // 网格
+  for(var g=0;g<=4;g++){
+    var yy=T+plotH*g/4;
+    s+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#eef2f7" stroke-width="1"/>';
+    s+='<text x="'+(L-6)+'" y="'+(yy+4)+'" font-size="10" fill="#94a3b8" text-anchor="end">'+fmt(Math.round(maxV*(1-g/4)))+'</text>';
+    if(g>0){ s+='<text x="'+(W-R-4)+'" y="'+(yy+4)+'" font-size="9" fill="#a78bfa" text-anchor="start">'+Math.round(maxP*(1-g/4))+'%</text>'; }
+  }
+  // 折线：全市
+  var p1='', p2='', p3='';
+  monthData.forEach(function(d,i){
+    p1+= (i? 'L':'M')+x(i)+' '+y1(d.wh)+' ';
+    p2+= (i? 'L':'M')+x(i)+' '+y1(d.gg)+' ';
+    p3+= (i? 'L':'M')+x(i)+' '+y2(d.pct)+' ';
+    s+='<circle cx="'+x(i)+'" cy="'+y1(d.wh)+'" r="3.5" fill="#2563eb"/>';
+    s+='<circle cx="'+x(i)+'" cy="'+y1(d.gg)+'" r="3.5" fill="#f59e0b"/>';
+    s+='<circle cx="'+x(i)+'" cy="'+y2(d.pct)+'" r="3" fill="#8b5cf6"/>';
+    s+='<text x="'+x(i)+'" y="'+(H-6)+'" font-size="10.5" fill="#475569" text-anchor="middle">'+d.m+'</text>';
+  });
+  s+='<path d="'+p1+'" fill="none" stroke="#2563eb" stroke-width="2.4"/>';
+  s+='<path d="'+p2+'" fill="none" stroke="#f59e0b" stroke-width="2.4" stroke-dasharray="6 3"/>';
+  s+='<path d="'+p3+'" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="2 3"/>';
+  s+='<text x="'+L+'" y="'+(T-6)+'" font-size="11" fill="#334155" font-weight="bold">全市商品住宅（套，左轴：蓝色）</text>';
+  s+='<text x="'+L+'" y="'+(T+12)+'" font-size="11" fill="#b45309" font-weight="bold">东湖高新区（套 / 虚线橙色）</text>';
+  s+='<text x="'+(W-R+8)+'" y="'+(T-6)+'" font-size="11" fill="#7c3aed" font-weight="bold">光谷占比（%，右轴）</text>';
+  s+='</svg>';
+  el('ch-monthly').innerHTML=s;
+}
+
+/* 70城柱状图（新房/二手，环比%，正负色） */
+function chart70(){
+  var W=340,H=250,T=18,B=38;
+  var L=44,R=8, plotW=W-L-R, plotH=H-T-B;
+  var maxA=0.5;
+  var bw=48, gap=(plotW-bw*city70.length)/(city70.length+1);
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">';
+  var y0=T+plotH*(maxA/(2*maxA));
+  s+='<line x1="'+L+'" y1="'+y0+'" x2="'+(W-R)+'" y2="'+y0+'" stroke="#94a3b8" stroke-width="1"/>';
+  for(var v=-0.5;v<=0.5;v+=0.5){
+    var yy=T+plotH*(1-(v+maxA)/(2*maxA));
+    s+='<text x="'+(L-6)+'" y="'+(yy+4)+'" font-size="9.5" fill="#94a3b8" text-anchor="end">'+(v>0?'+':'')+v+'</text>';
+  }
+  function bar(v,xx,col){
+    var h=Math.abs(v)/(2*maxA)*plotH;
+    var yy=v>=0? y0-h : y0;
+    s+='<rect x="'+xx+'" y="'+yy+'" width="'+(bw*0.36)+'" height="'+Math.max(1,h)+'" rx="2" fill="'+col+'"/>';
+  }
+  city70.forEach(function(d,i){
+    var x0=L+gap+i*(bw+gap);
+    var x1=x0+bw*0.5;
+    bar(d.xf, x0, d.xf>=0?'#ef4444':'#94a3b8');
+    bar(d.es, x1, d.es>=0?'#16a34a':'#ef4444');
+    s+='<text x="'+(x0+bw/2)+'" y="'+(H-16)+'" font-size="10.5" fill="#475569" text-anchor="middle">'+d.m+'</text>';
+  });
+  s+='<text x="'+L+'" y="'+(T+6)+'" font-size="11" fill="#b91c1c" font-weight="bold">新房（%）</text>';
+  s+='<text x="'+L+'" y="'+(T+20)+'" font-size="11" fill="#15803d" font-weight="bold">二手（%）</text>';
+  s+='</svg>';
+  el('ch-70city').innerHTML=s;
+}
+
+/* ============ 时间线 ============ */
+function renderTimeline(){
+  var h='';
+  timeline.forEach(function(it){
+    var cls='it'+(it.cls?' '+it.cls:'');
+    h+='<div class="'+cls+'">';
+    h+='<div class="dt">'+it.d+'</div>';
+    h+='<div class="tt">'+it.t+'</div>';
+    if(it.de){ h+='<div class="de">'+it.de+'</div>'; }
+    h+='</div>';
+  });
+  el('timeline').innerHTML=h;
+}
+
+/* ============ 来源清单 ============ */
+function renderSrc(){
+  var s=[
+    '1. 武汉市住房和城市更新局《商品住房（预）售月度监测简报》（2026-05/06/07月）——月度各区分区表',
+    '2. 武汉市自然资源和城乡建设局官网：第14次土拍动态《民企强势加注光谷 住宅溢价创新高》（2026-08-21）',
+    '3. 武汉市人民政府门户《武汉楼市新政公布！》（汉七条全文，2026-04-30）',
+    '4. 国家统计局70大中城市房价（2026-07，2026-08-17发布）；湖北省住建厅转载楚天都市报（2026-08-18）',
+    '5. 全国银行间同业拆借中心 LPR 公告（2026-08-20）；武汉金融局转发（2026-08-21）',
+    '6. 武汉市统计局《2026年上半年武汉经济运行情况》（2026-07-23）',
+    '7. 中指研究院（华中）半年度/7月数据（经央广网 2026-07-06、腾讯新闻 2026-08-09 转载）',
+    '8. 极目新闻：4月底挂牌19.3万套、前4个月二手成交（房管局口径）；腾讯新闻易居数据（2026-08-26）',
+    '9. 安居客武汉（光谷东 7月挂牌均价 13,203元/㎡，❌挂牌参考）；房天下武汉周报（2026-08-24）',
+    '10. 小区成交价明细来源：贝壳成交记录/购房荟月报（2026-07~08，见文档01/02）'
+  ];
+  el('src-list').innerHTML=s.map(function(x){return '<div>· '+x+'</div>';}).join('');
+}
+
+function fmtC(){ chartMonthly(); chart70(); renderTimeline(); renderSrc(); }
+
+/* ============ 标签页切换 ============ */
+var tabs=document.querySelectorAll('.tab');
+tabs.forEach(function(t){
+  t.addEventListener('click', function(){
+    var k=t.dataset.p;
+    tabs.forEach(function(x){ x.classList.remove('on'); });
+    t.classList.add('on');
+    document.querySelectorAll('.page').forEach(function(p){
+      p.classList.toggle('on', p.id===k);
+    });
+  });
+});
+
+fmtC();
+</script>
+</body>
+</html>
