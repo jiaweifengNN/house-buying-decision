@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>光谷购房决策看板 · 2026-08-28</title>
+<title>光谷购房决策看板 · 2026-08-29</title>
 <style>
   :root{
     --bg:#f1f5f9; --card:#ffffff; --line:#e2e8f0;
@@ -54,6 +54,7 @@
   .hl{color:var(--blue-d); font-weight:700;}
   .hlr{color:var(--red); font-weight:700;}
   .hlg{color:var(--green); font-weight:700;}
+  .sect-h{font-size:13px; font-weight:800; color:var(--blue-d); margin:12px 0 4px; padding:4px 0; border-bottom:2px solid #eef2ff;}
 
   /* 表格 */
   table{width:100%; border-collapse:collapse; font-size:13px; margin-top:8px;}
@@ -67,19 +68,33 @@
   .b-yellow{background:var(--warn,#fef9c3); color:#854d0e;}
   .b-blue{background:#dbeafe; color:#1e40af;}
   .b-gray{background:#f1f5f9; color:#475569;}
+  .b-purple{background:#f3e8ff; color:#6b21a8;}
 
   /* 时间线 */
   .tl{position:relative; margin:8px 0 0 8px; padding-left:22px;}
   .tl::before{content:""; position:absolute; left:5px; top:4px; bottom:4px; width:2px; background:var(--line);}
-  .tl .it{position:relative; margin-bottom:14px;}
+  .tl .it{position:relative; margin-bottom:18px;}
   .tl .it::before{content:""; position:absolute; left:-22px; top:5px; width:10px; height:10px; border-radius:50%;
                   background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 2px var(--blue);}
   .tl .it.warn::before{background:var(--orange); box-shadow:0 0 0 2px var(--orange);}
   .tl .it.done::before{background:var(--line); box-shadow:0 0 0 2px var(--line);}
   .tl .dt{font-size:12px; color:var(--blue-d); font-weight:700;}
-  .tl .tt{font-size:13px; font-weight:600; margin:1px 0;}
-  .tl .de{font-size:12.5px; color:#475569;}
-  .tl .de b{color:var(--ink);}
+  .tl .tt{font-size:13.5px; font-weight:600; margin:2px 0 4px;}
+  .tl .de{font-size:12px; color:var(--mut);}
+  .tl .det{font-size:12.5px; color:#475569; line-height:1.65; margin-top:5px; padding:8px 12px;
+           background:#f8fafc; border-left:3px solid var(--blue); border-radius:0 8px 8px 0;}
+  .tl .it.warn .det{border-left-color:var(--orange); background:#fffbf0;}
+  .tl .det b{color:var(--ink);}
+  .tl .det .src{font-size:11px; color:var(--mut); margin-top:5px; display:block; padding-top:4px; border-top:1px dashed var(--line);}
+
+  /* 地图 */
+  .map-box{background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:10px;}
+  .map-legend{display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; font-size:12px; align-items:center;}
+  .map-legend span{display:inline-flex; align-items:center; gap:5px;}
+  .map-legend i{width:13px; height:13px; border-radius:50%; display:inline-block; border:1.5px solid #fff;}
+  .map-tip{font-size:12px; color:var(--mut); margin-top:6px;}
+  .mnode{cursor:pointer;}
+  .mnode:hover circle{r:7; stroke-width:2;}
 
   /* 结论卡 */
   .verdict{border-left:4px solid var(--blue); background:#f8faff; border-radius:0 12px 12px 0; padding:10px 14px; margin-top:6px;}
@@ -93,10 +108,10 @@
 </head>
 <body>
 <header>
-  <div class="hero-in">
+  <div class="h-in">
     <div class="h-title">🏠 光谷购房决策看板</div>
     <div class="h-meta">
-      <div class="chip">数据基准：<b>2026-07月度官方数据 + 2026-08-27 事件更新</b></div>
+      <div class="chip">数据基准：<b>2026-07月度官方数据 + 2026-08-28 事件更新</b></div>
       <div class="chip">聚焦：<span>东湖高新区 · 2027年（最晚2028年）上车</span></div>
       <div class="chip">原则：<span>只信成交价，不信挂牌价</span></div>
     </div>
@@ -127,8 +142,8 @@
       <h2><span class="tag">结论</span> 2027年出手，核心区不拖过 2027 年底</h2>
       <div class="verdict">第一梯队（优先）：<b>光谷中心城·北区</b>（配套已落地，流通性顶尖）与<b>关山核心</b>（学区+商业最成熟）。二手成交基准：刚需 1.1-1.25万、刚改 1.25-1.5万、高端 1.6-1.78万 元/㎡。</div>
       <div class="verdict warn" style="margin-top:8px;">⚠️ 已核实 2026-06-30 终止"1.5%新城区补助"；当前可享受：商贷<b>按区认首套</b>（至2026-12-31）、公积金优惠（挂牌房不计套数，至2027-06-30）、商办 1% 补助（至12-31）。签约前一律找售楼处核对当期细则。</div>
-      <div class="verdict warn" style="margin-top:8px;">⚠️ 口径更正：原报告“二手挂牌破40万套”经官方核验为 <b>19.3 万套（2026-04底，房管局）</b>；二手仍是买方市场，议价空间存在，但无需按 40万 恐慌定价。</div>
-      <div class="note">三大积极信号互相印证：①核心区土拍高溢价（8·21 楼面 14,738）；②70城 7 月武汉新房环比 +0.1%（连续3个月）；③四代宅首开去化 ≥80%（光谷、汉阳、武昌核心）。结论由“等一等”改为“核心区不拖过 2027 年底”。</div>
+      <div class="verdict warn" style="margin-top:8px;">🔔 <b>8·28 信贷新政已施行</b>：房贷期限最长 40 年、期房个贷延至竣工备案后发放——期房"背两年月供等房"痛点消除、烂尾风险大幅下降。详见 <b>政策·土拍</b> 标签页与文档 <b>06-新政前后期房购房流程对比</b>。</div>
+      <div class="note">三大积极信号互相印证：①核心区土拍高溢价（8·21 楼面 14,738）；②70城 7 月武汉新房环比 +0.1%（连续3个月）；③四代宅首开去化 ≥80%（光谷、汉阳、武昌核心）。结论由"等一等"改为"核心区不拖过 2027 年底"。</div>
     </div>
 
     <div class="card">
@@ -156,33 +171,108 @@
   <!-- 板块价格 -->
   <div class="page" id="p-price">
     <div class="card">
-      <h2><span class="tag">二手成交基准</span> 光谷 8 大板块（2026年6月 贝壳成交 + 7-8月监测）</h2>
+      <h2><span class="tag">二手成交明细</span> 各板块小区真实成交价（2026年6月 贝壳成交 ✅）</h2>
+      <div class="note">下表每一行均为<b>已成交真实记录</b>（非挂牌），谈判时直接对标同小区近3个月成交单价。数据来源：贝壳成交记录 / 武汉购房荟6月光谷月报。</div>
+
+      <div class="sect-h">光谷中心城·北区（6月约167套，套均122.8万，全区最高）</div>
       <table>
-        <tr><th>板块</th><th>6月成交</th><th>套均总价</th><th>成交单价区间</th><th>趋势</th></tr>
-        <tr><td>光谷中心城</td><td>约167套（最高）</td><td>122.8万</td><td>6,455 - 16,102</td><td>分化：次新稳、老盘跌</td></tr>
-        <tr><td>关山核心</td><td>约140套</td><td>137.5万</td><td>8,278 - 19,334</td><td>学区盘企稳</td></tr>
-        <tr><td>金融港</td><td>约65套</td><td>108.5万</td><td>7,119 - 17,144</td><td>学区溢价坚挺</td></tr>
-        <tr><td>华科大</td><td>约63套</td><td>131.2万</td><td>16,459 - 17,825</td><td>全光谷最抗跌</td></tr>
-        <tr><td>花山</td><td>约59套</td><td>107.6万</td><td>5,038 - 13,198</td><td>洼地，继续磨底</td></tr>
-        <tr><td>中心城北</td><td>—</td><td>—</td><td>约 10,700 - 17,500</td><td>刚需/刚改/高端三档齐全</td></tr>
-        <tr><td>南三环</td><td>约29套</td><td>119.8万</td><td>6,957 - 13,375</td><td>刚需以价换量</td></tr>
-        <tr><td>左岭/未来科技城</td><td>量小</td><td>—</td><td>8,500 - 10,000</td><td>仅本地就业者</td></tr>
+        <tr><th class="l">小区</th><th>学区</th><th>成交单价区间</th><th class="l">典型成交</th></tr>
+        <tr><td class="l">香港置地元庐</td><td>云溪小学+光谷一初</td><td>14,094 - 16,102</td><td class="l">114㎡三房162万；128㎡三房206.8万（16,102/㎡）</td></tr>
+        <tr><td class="l">长江广电·光谷家</td><td>华师新城实小+新城实验初中</td><td>10,939 - 13,219</td><td class="l">140.7㎡四房高楼层186万（13,219/㎡）</td></tr>
+        <tr><td class="l">中建星光城</td><td>玉林小学+光谷一初</td><td>7,957 - 9,975</td><td class="l">一期127㎡低楼层127万；二期98㎡低楼层78万</td></tr>
+        <tr><td class="l">朗诗里程</td><td>光谷十七小+光谷一初</td><td>7,984 - 9,775</td><td class="l">131.9㎡四房105万；89㎡两房87万（从2.3万跌回2016年水平）</td></tr>
+        <tr><td class="l">绿地光谷星河绘</td><td>光谷十七小+光谷一初</td><td>6,455 - 10,290</td><td class="l">103.8㎡低楼层仅68万（捡漏标的）</td></tr>
+        <tr><td class="l">中建光谷之星</td><td>—</td><td>≈16,800</td><td class="l">小米总部旁，高端标杆</td></tr>
+        <tr><td class="l">联投驿园</td><td>—</td><td>≈12,500</td><td class="l">11号线零距离，刚改</td></tr>
       </table>
-      <div class="note">光谷二手整体成交均价约 10,352 元/㎡（6月）/ 约1.04万（7月，市场监测）；光谷东板块挂牌参考13,203元/㎡（7月安居客，❌挂牌口径）。新房成交价为二手 1.5-1.8倍（新房集中在四代宅改善产品）。</div>
+
+      <div class="sect-h">光谷中心城·南区（流通性弱，持有建议8年+）</div>
+      <table>
+        <tr><th class="l">小区</th><th>成交均价</th><th class="l">备注</th></tr>
+        <tr><td class="l">绿地国际理想城</td><td>12,400</td><td class="l">南区主力</td></tr>
+        <tr><td class="l">北辰优+</td><td>13,300</td><td class="l">—</td></tr>
+        <tr><td class="l">旭辉千山凌云（南）</td><td>12,800</td><td class="l">—</td></tr>
+        <tr><td class="l">正荣紫阙台</td><td>13,100</td><td class="l">⚠️ 避开南区最南端边缘地块</td></tr>
+      </table>
+
+      <div class="sect-h">关山核心（6月约140套，套均137.5万，学区盘企稳）</div>
+      <table>
+        <tr><th class="l">小区</th><th>学区</th><th>成交单价区间</th><th class="l">典型成交</th></tr>
+        <tr><td class="l">保利时代南区</td><td>光谷一小+光谷实验</td><td>14,200 - 17,551</td><td class="l">98㎡三房151万（15,394/㎡）；116.8㎡三房205万（17,551/㎡）</td></tr>
+        <tr><td class="l">保利时代北区</td><td>光谷一小+科创实验/二初</td><td>12,000 - 19,334</td><td class="l">116.4㎡三房高楼层225万（19,334/㎡）</td></tr>
+        <tr><td class="l">中建大公馆</td><td>光谷十小+光谷实验</td><td>13,000 - 18,000</td><td class="l">一期106.8㎡低楼层149万；四期126.1㎡低楼层227万</td></tr>
+        <tr><td class="l">清江山水</td><td>光谷十小+光谷实验</td><td>8,278 - 15,260</td><td class="l">106.8㎡高楼层163万；90.6㎡低楼层仅75万（楼层价差极大）</td></tr>
+        <tr><td class="l">金地格林东郡</td><td>光谷实验小学+光谷实验</td><td>9,845 - 13,719</td><td class="l">98.4㎡三房中楼层135万（13,719/㎡）</td></tr>
+        <tr><td class="l">旭辉千山凌云</td><td>光谷六小+光谷实验</td><td>13,838 - 14,402</td><td class="l">一期172.9㎡四房249万；二期122.9㎡三房170万</td></tr>
+      </table>
+
+      <div class="sect-h">金融港（6月约65套，套均108.5万，学区溢价坚挺）</div>
+      <table>
+        <tr><th class="l">小区</th><th>学区</th><th>成交单价区间</th><th class="l">典型成交</th></tr>
+        <tr><td class="l">万科·光谷锦曜</td><td>云创小学</td><td>14,624</td><td class="l">93㎡三房137万（金融港唯一站稳1.5万的次新）</td></tr>
+        <tr><td class="l">金地艺境</td><td>光谷十五小+光谷实验（普高84%）</td><td>9,897 - 17,144</td><td class="l">109㎡中楼层187万（17,144/㎡，板块单价王）</td></tr>
+        <tr><td class="l">现代森林小镇</td><td>光谷二小+光谷实验</td><td>11,475 - 13,398</td><td class="l">144㎡中楼层188万；92.4㎡高楼层106万</td></tr>
+        <tr><td class="l">万科魅力之城</td><td>光谷十五小+光谷实验</td><td>9,490 - 12,570</td><td class="l">南区58.9㎡两房74万；北区96.9㎡三房92万</td></tr>
+        <tr><td class="l">旭辉御府</td><td>光谷七小+光谷三初（普高56.6%）</td><td>7,119 - 8,816</td><td class="l">103.2㎡中楼层91万；87.1㎡中楼层62万</td></tr>
+      </table>
+
+      <div class="sect-h">华科大板块（6月约63套，套均131.2万，全光谷最抗跌）</div>
+      <table>
+        <tr><th class="l">小区</th><th>学区</th><th>成交单价区间</th><th class="l">典型成交</th></tr>
+        <tr><td class="l">泛悦城</td><td>光谷四小+光谷二初（普高77%）</td><td>16,672 - 17,825</td><td class="l">136.3㎡高楼层243万（17,825/㎡）板块标杆</td></tr>
+        <tr><td class="l">琨瑜府</td><td>光谷四小+光谷二初</td><td>16,459 - 17,310</td><td class="l">一期167㎡四房289万；二期116㎡三房191万</td></tr>
+      </table>
+
+      <div class="sect-h">花山（6月约59套，套均107.6万，洼地继续磨底）</div>
+      <table>
+        <tr><th class="l">小区</th><th>成交单价区间</th><th class="l">典型成交</th></tr>
+        <tr><td class="l">绿城凤起乐鸣</td><td>10,666 - 13,198</td><td class="l">169.7㎡四房224万（13,198/㎡）花山品质标杆</td></tr>
+        <tr><td class="l">碧桂园生态城东境</td><td>6,775 - 7,297</td><td class="l">142.5㎡四房高楼层104万</td></tr>
+        <tr><td class="l">纽宾凯麓院</td><td>5,579 - 6,594</td><td class="l">143.4㎡四房80万；113.7㎡三房75万</td></tr>
+        <tr><td class="l">联投光谷瑞园</td><td>5,379 - 11,055</td><td class="l">102.2㎡中楼层仅55万；164.6㎡低层182万（高低层价差极大）</td></tr>
+        <tr><td class="l">交投华园</td><td>5,038 - 5,127</td><td class="l">119.1㎡低楼层仅60万（板块最低次新之一）</td></tr>
+      </table>
+      <div class="note">光谷二手整体成交均价约 10,352 元/㎡（6月）/ 约1.04万（7月，市场监测）。议价规律：学区坚挺盘挂牌-成交价差约 3%-8%；次新改善盘 5%-10%；老盘/远郊盘可达 10%-15%。</div>
     </div>
 
     <div class="card">
-      <h2><span class="tag">新房网签基准</span> 主力盘真实网（2026年5-8月）</h2>
+      <h2><span class="tag">新房网签明细</span> 在售楼盘真实网签价（2026年5-8月 克而瑞/普睿 ✅）</h2>
+      <div class="note">网签价 ≠ 备案价 ≠ 案场报价；案场报价通常高 5%-10%。同盘不同批次（毛坯/精装、楼栋）价差可达 2,000-3,000 元/㎡。</div>
+
+      <div class="sect-h">大关山板块（2026年光谷最热新房战场）</div>
       <table>
-        <tr><th>板块</th><th>楼盘</th><th>产品</th><th>网签成交均价</th><th>热度</th></tr>
-        <tr><td>大关山</td><td>联发·光合新澍</td><td>四代宅 69-118㎡</td><td>首开日光（约1.5-1.7万档）</td><td>6·14 首开 160套 49分钟售罄，12天加推累计成交 249套</td></tr>
-        <tr><td>大关山</td><td>招商原颂</td><td>准四代</td><td>16,224（毛坯）</td><td>周均认购16-19套</td></tr>
-        <tr><td>大关山</td><td>光谷壹号院</td><td>精装高层</td><td>20,028</td><td>7月成交 131套/3.23亿；11月交付</td></tr>
-        <tr><td>中心城北</td><td>万科璞拾光屿</td><td>五代住区</td><td>16,924-19,542</td><td>上半年网签474套全武汉TOP3，已售罄</td></tr>
-        <tr><td>中心城北</td><td>光谷润璟</td><td>高层</td><td>约18,110</td><td>7月成交168套/3.54亿</td></tr>
-        <tr><td>中心城北</td><td>深业翠微谷</td><td>小高层</td><td>13,866（毛坯）</td><td>临政务中心</td></tr>
-        <tr><td>花山</td><td>联投花山河</td><td>高层</td><td>毛坯13-13.5千</td><td>刚需主力</td></tr>
-        <tr><td>左岭</td><td>板块新盘</td><td>—</td><td>7,000-8,325</td><td>远郊洼地</td></tr>
+        <tr><th class="l">楼盘</th><th>产品</th><th>网签成交均价</th><th class="l">热度/动态</th></tr>
+        <tr><td class="l">联发·光合新澍</td><td>四代宅 69-118㎡</td><td>首开日光（约1.5-1.7万档）</td><td class="l">6·14 首开160套49分钟售罄，12天加推累计249套</td></tr>
+        <tr><td class="l">招商原颂</td><td>准四代高层</td><td>16,224（毛坯）</td><td class="l">周均认购16-19套，双地铁</td></tr>
+        <tr><td class="l">光谷壹号院</td><td>精装高层+叠拼</td><td>20,028（精装）</td><td class="l">7月成交131套/3.23亿；11·18交付准现房</td></tr>
+        <tr><td class="l">维佳·关山郡</td><td>超高层现房</td><td>14,054（毛坯）</td><td class="l">地铁11号线关山大道站，K11对面，光谷一小600米</td></tr>
+        <tr><td class="l">中建大公馆</td><td>现房</td><td>24,000（一房一价）</td><td class="l">在售102-170㎡，光谷十小+光谷实验</td></tr>
+      </table>
+
+      <div class="sect-h">光谷中心城·北区</div>
+      <table>
+        <tr><th class="l">楼盘</th><th>产品</th><th>网签成交均价</th><th class="l">热度/动态</th></tr>
+        <tr><td class="l">万科·璞拾光屿</td><td>五代立体住区 101-169㎡</td><td>精装高层16,924-17,832 / 小高层19,150-19,542</td><td class="l">上半年网签474套全武汉TOP3，已售罄</td></tr>
+        <tr><td class="l">光谷润璟</td><td>高层</td><td>≈18,110</td><td class="l">7月成交168套/3.54亿；同济光谷院区旁</td></tr>
+        <tr><td class="l">深业翠微谷</td><td>小高层</td><td>13,866（毛坯）</td><td class="l">临政务中心，低密准四代</td></tr>
+        <tr><td class="l">大家·玖宸</td><td>高层+叠拼</td><td>≈13,000起</td><td class="l">周认购20套+，叠拼165-175㎡蓄客中</td></tr>
+        <tr><td class="l">城投南山长投·领峯</td><td>高层</td><td>低价准现房策略</td><td class="l">6月加推9#去化较好，价格门槛最低一档</td></tr>
+      </table>
+
+      <div class="sect-h">光谷南板块</div>
+      <table>
+        <tr><th class="l">楼盘</th><th>网签/参考价</th><th class="l">动态</th></tr>
+        <tr><td class="l">万科·光谷锦上</td><td>16,000-18,500</td><td class="l">在售100-140㎡，万科物业，2号线佛祖岭方向</td></tr>
+        <tr><td class="l">美的·云筑</td><td>9,000</td><td class="l">低价刚需</td></tr>
+        <tr><td class="l">绿城光谷桂府</td><td>11,999</td><td class="l">在售98-121㎡，毛坯</td></tr>
+      </table>
+
+      <div class="sect-h">花山 / 左岭板块</div>
+      <table>
+        <tr><th class="l">楼盘</th><th>成交/参考价</th><th class="l">动态</th></tr>
+        <tr><td class="l">联投·花山河</td><td>毛坯13,000-13,500 / 精装14,000-15,000</td><td class="l">花山TOD大盘，首付20%起26万上车三房</td></tr>
+        <tr><td class="l">联投悦西湖</td><td>13,000</td><td class="l">在售100-190㎡，刚需主力</td></tr>
+        <tr><td class="l">左岭新盘（整体）</td><td>7,000-8,325</td><td class="l">板块月均去化慢，仅推荐左岭/未来科技城就业者</td></tr>
       </table>
     </div>
   </div>
@@ -215,7 +305,7 @@
   <!-- 政策与土拍 -->
   <div class="page" id="p-policy">
     <div class="card">
-      <h2><span class="tag">时间线</span> 2026年重要节点（可继续往下滚动阅读）</h2>
+      <h2><span class="tag">时间线</span> 2026年重要节点（每条下方有详细解读，可继续往下滚动）</h2>
       <div class="tl" id="timeline"></div>
     </div>
     <div class="grid2">
@@ -240,9 +330,9 @@
           成交价 <b>7.428 亿</b> · 楼面均价 <b>14,738 元/㎡</b> · 溢价率 <b>48.9%</b><br>
           竞得：十堰汉成置业（深圳汉成盛泽）· 全场 9 家头部房企（华润、绿城、保利、建发等）
         </div>
-        <div class="note" style="margin-top:8px;">含义：楼面价 1.47 万 → 未来售价大概率 2万+/㎡；与当前中心城北四代宅网签（1.7-1.95万）形成倒挂支撑——核心区看涨“真金白银投票”。</div>
+        <div class="note" style="margin-top:8px;">含义：楼面价 1.47 万 → 未来售价大概率 2万+/㎡；与当前中心城北四代宅网签（1.7-1.95万）形成倒挂支撑——核心区看涨"真金白银投票"。</div>
         <hr style="border:none;border-top:1px dashed var(--line);margin:12px 0;">
-        <div class="verdict">上半年全市宅地仅成交 19 宗（建面 -33.9%、金额 -51.8%）；6月光谷 P(2026)032 地块楼面 11,169 元/㎡（溢价 21%）；7月末以来“连续三场土拍溢价”是重要拐点信号。</div>
+        <div class="verdict">上半年全市宅地仅成交 19 宗（建面 -33.9%、金额 -51.8%）；6月光谷 P(2026)032 地块楼面 11,169 元/㎡（溢价 21%）；7月末以来"连续三场土拍溢价"是重要拐点信号。</div>
       </div>
     </div>
     <div class="card">
@@ -251,10 +341,10 @@
         <tr><th>条款</th><th>内容</th><th>对你的影响</th></tr>
         <tr><td>贷款期限</td><td>个人住房贷款最长 <b>30 → 40 年</b>（与银行协商）</td><td>100万·LPR3.5%：月供 4,490 → 3,874 元（约省617元/月）；但 40 年总利息多付约 24 万</td></tr>
         <tr><td>月供收入比</td><td>月供/月收入 ≤ <b>50%</b>；全部债务支出/月收入 ≤ <b>60%</b></td><td>40 年贷款更易过收入门槛（100万·40年约需家庭月入 ≥7,750）</td></tr>
-        <tr><td>发放时点</td><td>期房：<b>竣工备案后</b>放款；现房：销售备案后放款</td><td>“能拿房、再还贷”；期房不背月供，但首付资金先锁定</td></tr>
-        <tr><td>首付底线</td><td>不得低于两部门最低首付比例（全国15%，武汉沿用）</td><td>无实质变化；武汉“按区认首套”延续至 12-31</td></tr>
+        <tr><td>发放时点</td><td>期房：<b>竣工备案后</b>放款；现房：销售备案后放款</td><td>"能拿房、再还贷"；期房不背月供，但首付资金先锁定</td></tr>
+        <tr><td>首付底线</td><td>不得低于两部门最低首付比例（全国15%，武汉沿用）</td><td>无实质变化；武汉"按区认首套"延续至 12-31</td></tr>
       </table>
-      <div class="note">配套：金融监管总局同日发布 5 项《管理办法（试行）》；证监会支持房企再融资与商业不动产 REITs。含义：利好现房/准现房与核心区稳健盘，加固“核心区不拖过 2027 底”判断（详见文档05-八）。</div>
+      <div class="note">配套：金融监管总局同日发布 5 项《管理办法（试行）》；证监会支持房企再融资与商业不动产 REITs。含义：利好现房/准现房与核心区稳健盘，加固"核心区不拖过 2027 底"判断（详见文档05-八、06-新政前后对比）。</div>
     </div>
     <div class="card">
       <h2><span class="tag">信贷</span> 利率现状（2026-08-20 确认）</h2>
@@ -271,33 +361,58 @@
   <!-- 看房名单 -->
   <div class="page" id="p-watch">
     <div class="card">
+      <h2><span class="tag">🗺️ 板块分布图</span> 光谷看房标的示意（鼠标悬停看详情）</h2>
+      <div class="map-box">
+        <div id="ch-map" style="width:100%;"></div>
+        <div class="map-legend">
+          <span><i style="background:#2563eb;"></i> 第一梯队（中心城北/关山）</span>
+          <span><i style="background:#16a34a;"></i> 第二梯队（金融港/华科大）</span>
+          <span><i style="background:#8b5cf6;"></i> 中心城南（谨慎）</span>
+          <span><i style="background:#94a3b8;"></i> 对照参考（花山/左岭）</span>
+        </div>
+        <div class="map-tip">示意性方位图（北上东右），非精确测绘；圆点位置反映各楼盘相对板块方位。悬停圆点查看楼盘、类型与目标价位。</div>
+      </div>
+    </div>
+
+    <div class="card">
       <h2><span class="tag">第一梯队</span> 光谷中心城北 · 关山</h2>
       <table>
-        <tr><th>标的</th><th>类型</th><th>目标价位</th><th>备注</th></tr>
-        <tr><td>万科璞拾光屿</td><td>新房（五代住区）</td><td>1.69-1.95万</td><td>已售罄，关注尾盘/退房</td></tr>
-        <tr><td>光谷润璟</td><td>新房</td><td>≈1.81万</td><td>同济光谷院区旁，7月168套</td></tr>
-        <tr><td>光合新澍（加推）</td><td>新房四代宅</td><td>日光档 1.5-1.7万</td><td>得房率110-122%，加推即登记</td></tr>
-        <tr><td>中建光谷之星</td><td>二手高端</td><td>≈1.68万</td><td>政务中心/小米总部旁</td></tr>
-        <tr><td>联投驿园</td><td>二手刚改</td><td>≈1.25万</td><td>11号线直连</td></tr>
-        <tr><td>朗诗里程</td><td>二手刚需</td><td>8千-1万</td><td>观察止跌信号 = 买入信号</td></tr>
+        <tr><th class="l">标的</th><th>类型</th><th>目标价位</th><th class="l">备注</th></tr>
+        <tr><td class="l">万科璞拾光屿</td><td><span class="badge b-blue">新房</span></td><td>1.69-1.95万</td><td class="l">已售罄，关注尾盘/退房</td></tr>
+        <tr><td class="l">光谷润璟</td><td><span class="badge b-blue">新房</span></td><td>≈1.81万</td><td class="l">同济光谷院区旁，7月168套</td></tr>
+        <tr><td class="l">光合新澍（加推）</td><td><span class="badge b-blue">新房四代</span></td><td>日光档 1.5-1.7万</td><td class="l">得房率110-122%，加推即登记</td></tr>
+        <tr><td class="l">中建光谷之星</td><td><span class="badge b-gray">二手高端</span></td><td>≈1.68万</td><td class="l">政务中心/小米总部旁</td></tr>
+        <tr><td class="l">联投驿园</td><td><span class="badge b-gray">二手刚改</span></td><td>≈1.25万</td><td class="l">11号线直连</td></tr>
+        <tr><td class="l">朗诗里程</td><td><span class="badge b-gray">二手刚需</span></td><td>8千-1万</td><td class="l">观察止跌信号 = 买入信号</td></tr>
       </table>
     </div>
     <div class="card">
       <h2><span class="tag">第二梯队</span> 关山 · 金融港 · 华科大</h2>
       <table>
-        <tr><th>标的</th><th>类型</th><th>目标价位</th><th>备注</th></tr>
-        <tr><td>招商原颂</td><td>新房准四代</td><td>1.62万基准</td><td>双地铁</td></tr>
-        <tr><td>维佳关山郡</td><td>新房现房</td><td>1.4万基准</td><td>地铁口·现房</td></tr>
-        <tr><td>保利时代南区</td><td>二手学区</td><td>1.42-1.75万</td><td>光谷实小+实验</td></tr>
-        <tr><td>中建大公馆</td><td>新房+二手</td><td>—</td><td>四期&二手对比</td></tr>
-        <tr><td>现代森林小镇</td><td>二手学区</td><td>1.15-1.34万</td><td>顶级学区+地铁</td></tr>
-        <tr><td>金地·铂翠</td><td>新房四代</td><td>1.24-1.35万（8月加推待核实）</td><td>金融港销冠，94-154㎡</td></tr>
-        <tr><td>万科光谷锦曜</td><td>二手次新</td><td>1.46万</td><td>盯成交量是否放大</td></tr>
+        <tr><th class="l">标的</th><th>类型</th><th>目标价位</th><th class="l">备注</th></tr>
+        <tr><td class="l">招商原颂</td><td><span class="badge b-blue">新房准四代</span></td><td>1.62万基准</td><td class="l">双地铁</td></tr>
+        <tr><td class="l">维佳关山郡</td><td><span class="badge b-blue">新房现房</span></td><td>1.4万基准</td><td class="l">地铁口·现房</td></tr>
+        <tr><td class="l">保利时代南区</td><td><span class="badge b-gray">二手学区</span></td><td>1.42-1.75万</td><td class="l">光谷实小+实验</td></tr>
+        <tr><td class="l">中建大公馆</td><td><span class="badge b-blue">新房+二手</span></td><td>—</td><td class="l">四期&二手对比</td></tr>
+        <tr><td class="l">现代森林小镇</td><td><span class="badge b-gray">二手学区</span></td><td>1.15-1.34万</td><td class="l">顶级学区+地铁</td></tr>
+        <tr><td class="l">金地·铂翠</td><td><span class="badge b-blue">新房四代</span></td><td>1.24-1.35万（8月加推待核实）</td><td class="l">金融港销冠，94-154㎡</td></tr>
+        <tr><td class="l">万科光谷锦曜</td><td><span class="badge b-gray">二手次新</span></td><td>1.46万</td><td class="l">盯成交量是否放大</td></tr>
+        <tr><td class="l">泛悦城</td><td><span class="badge b-gray">二手标杆</span></td><td>1.67-1.78万</td><td class="l">华科大板块，全光谷最抗跌（预算250万+）</td></tr>
       </table>
     </div>
     <div class="card">
+      <h2><span class="tag b-purple">中心城南</span> 流通性弱，持有8年+，谨慎观望</h2>
+      <table>
+        <tr><th class="l">标的</th><th>类型</th><th>成交均价</th><th class="l">备注</th></tr>
+        <tr><td class="l">绿地国际理想城</td><td><span class="badge b-gray">二手</span></td><td>12,400</td><td class="l">南区主力</td></tr>
+        <tr><td class="l">北辰优+（南）</td><td><span class="badge b-gray">二手</span></td><td>13,300</td><td class="l">—</td></tr>
+        <tr><td class="l">正荣紫阙台</td><td><span class="badge b-gray">二手</span></td><td>13,100</td><td class="l">⚠️ 避开最南端边缘地块</td></tr>
+      </table>
+      <div class="note">中心城南交付齐全但配套兑现慢，流通性弱。除非工作就在附近或预算敏感，不建议作为首选；若买需做好 8 年以上持有准备。</div>
+    </div>
+    <div class="card">
       <h2><span class="tag">对照</span> 不在重点（感知用）</h2>
-      <div class="note">花山·联投花山河（新房14-15千）；左岭（远郊现状）；筛查时对照“挂牌价-成交价差”纪律：看房先问同小区近3个月成交价，挂牌超本表上限 15% 按成交价砍。</div>
+      <div class="note">花山·联投花山河（新房14-15千）；左岭（远郊现状）；筛查时对照"挂牌价-成交价差"纪律：看房先问同小区近3个月成交价，挂牌超本表上限 15% 按成交价砍。</div>
     </div>
   </div>
 
@@ -319,7 +434,7 @@
     </div>
   </div>
 
-  <footer>仅供个人购房决策参考，不构成投资建议 · 数据基准日 2026-08-28 · 随项目 00-05 文档同步更新</footer>
+  <footer>仅供个人购房决策参考，不构成投资建议 · 数据基准日 2026-08-29 · 随项目 00-06 文档同步更新</footer>
 </div>
 
 <script>
@@ -340,18 +455,30 @@ var city70 = [
   {m:'7月', xf:0.1, es:0.0}
 ];
 var timeline = [
-  {d:'2026-01-03', t:'公积金中心通知：异地贷款扩至全国、额度阶段性上浮20%、提取余额付首付', cls:'done', de:'公积金中心官网'},
-  {d:'2026-03-03前后', t:'单月新房成交全市 12,190 套，光谷 4,046 套（占33%）', cls:'done', de:'官方月度简报，3月为上半年峰值'},
-  {d:'2026-04-30', t:'汉七条发布/印发（见左侧解读卡）', cls:'', de:'武汉住后局/财政局/公积金中心联合发文'},
-  {d:'2026-05-01~06-30', t:'新城区购房补助窗口（首套1.5%/二套1%）⚠️ 已在6月30日截止', cls:'warn', de:'涉及东湖高新等八大新城'},
-  {d:'2026-06-14', t:'联发·光合新澍首开 160 套 49 分钟售罄（关山近7年首个日光盘）', cls:'', de:'12天后紧急加推，累计成交249套'},
-  {d:'2026-07-03', t:'官方6月数据：全市商品住宅 12,909 套（环比+39.7%）', de:'东湖高新 1,951 套'},
-  {d:'2026-08-04', t:'官方7月数据：全市 7,725 套（环比-40.2%），东湖高新 1,330 套', de:'17.2%，淡季回落'},
-  {d:'2026-08-17', t:'国家统计局 70 城：武汉新房环比+0.1%（连续3个月上行），二手环比持平', de:'同比新房-2.1% / 二手-7.0%'},
-  {d:'2026-08-20', t:'LPR 公布：1年期3.0%、5年期3.5%，连续 15 个月不变', cls:'done', de:'武汉金融局同步转载'},
-  {d:'2026-08-21', t:'第14次土拍：P(2026)063 光谷地块 122轮竞价、溢价 48.9%、楼面价 14,738 元/㎡（今年最高）', cls:'warn', de:'官方：连续三场土拍“场场溢价”'},
-  {d:'2026-08-25~27', t:'补贴窗口结束后新政进入落地兑现期；8月17-23日周成交 2,077 套（环比+2.7%）', cls:'warn', de:'新一阶段操作窗口（12-31 前按区认首套）'},
-  {d:'2026-08-27/28', t:'央行+金融监管总局印发《房地产信贷管理意见》——个人房贷期限最长 40 年、月供收入比≤50%、期房个贷延至竣工备案后才发放', cls:'warn', de:'金融监管总局同步发布 5 项配套办法（试行），证监会支持房企再融资/商业 REITs'}
+  {d:'2026-01-03', t:'公积金中心通知：异地贷款扩至全国、额度上浮20%、提取余额付首付', cls:'done', de:'公积金中心官网',
+   det:'武汉住房公积金管理中心发布通知，三项扩围：<b>①异地贷款取消武汉户籍限制</b>，全国缴存职工均可申请武汉公积金贷款；<b>②公积金贷款额度阶段性上浮 20%</b>；<b>③支持提取公积金账户余额缴付新建商品房首付</b>（官方原文用词"缴付"）。这是 2026 年光谷政策红包的第一波，直接降低首付现金压力。注意：额度上浮与其他上浮政策不叠加。<span class="src">来源：武汉住房公积金管理中心官网（2026-01-03）</span>'},
+  {d:'2026-03-03 前后', t:'单月新房成交全市 12,190 套，光谷 4,046 套（占 33.2%）', cls:'done', de:'官方月度简报',
+   det:'武汉市住房和城市更新局月度简报：3 月全市商品住宅网签 <b>12,190 套</b>，东湖高新区 <b>4,046 套</b>，光谷占全市 <b>33.2%</b>——这是 2026 年上半年的单月峰值。3 月放量主因：春节后需求集中释放 + 汉七条前的政策预期。光谷单月 4,046 套远超 1 月（598 套）、2 月（323 套），说明光谷新房去化节奏极快。<span class="src">来源：武汉市住和城市更新局《商品住房（预）售月度监测简报》3月</span>'},
+  {d:'2026-04-30', t:'汉七条发布/印发（详见左侧解读卡）', cls:'', de:'武汉住后局/财政局/公积金中心联合发文',
+   det:'武汉市住房和城市更新局、市财政局、武汉住房公积金管理中心联合印发《关于进一步优化完善我市房地产政策措施的通知》（"汉七条"）。七条核心：<b>①商贷按区认首套</b>（至 12-31）<b>②公积金套数认定优化</b>（已挂牌房不计套数，至 2027-06-30）<b>③存量公积金贷款比例</b>统一首套≤80%/二套≤70% <b>④公积金异地贷款</b>全国开放免户籍 <b>⑤新城区购房补助</b>首套1.5%/二套1%（至6-30，已截止）<b>⑥商办1%补助</b>（至12-31）<b>⑦多子女支持延长</b>（至2027-12-31）。这是 2026 年武汉最重磅的地方楼市政策。<span class="src">来源：武汉市政府门户（2026-04-30）</span>'},
+  {d:'2026-05-01 ~ 06-30', t:'新城区购房补助窗口（首套1.5%/二套1%）⚠️ 已在 6 月 30 日截止', cls:'warn', de:'涉及东湖高新等八大新城',
+   det:'东湖高新等八大新城区购买新建商品住房，首套按总价 <b>1.5%</b>、二套按 <b>1%</b> 给予现金补助。以 150 万总价首套计算 = 补助 <b>2.25 万元</b>。⚠️ 该窗口已于 2026-06-30 截止，8 月后签约不能再按"正在执行"计算。当前可叠加享受的是：按区认首套（至 12-31）、公积金优惠（至 2027-06-30）。<span class="src">来源：汉七条第五条；媒体（房探）2026-08-27 落地通报</span>'},
+  {d:'2026-06-14', t:'联发·光合新澍首开 160 套 49 分钟售罄（关山近 7 年首个日光盘）', cls:'', de:'12天后紧急加推，累计成交249套',
+   det:'联发·光合新澍（关山板块，四代宅 69-118㎡）首开 160 套，<b>49 分钟售罄</b>——关山近 7 年首个日光盘。得房率 <b>110-122%</b>，69㎡三房为稀缺创新户型。12 天后紧急加推 88-118㎡，去化超 9 成，累计成交 <b>249 套</b>。这是 2026 年光谷四代宅革命的标志性事件，印证"四代宅去化率≥80%"判断——四代宅产品力对三代宅形成降维打击。<span class="src">来源：腾讯新闻（2026-08-09）引述机构监测</span>'},
+  {d:'2026-07-03', t:'官方 6 月数据：全市商品住宅 12,909 套（环比 +39.7%）', de:'东湖高新 1,951 套',
+   det:'武汉市住和城市更新局 6 月简报：全市商品住宅 <b>12,909 套</b>，环比 <b>+39.7%</b>（"红六月"放量）；东湖高新区 <b>1,951 套</b>。6 月是上半年第二个高峰（仅次于 3 月），主因：1.5% 补助窗口末月冲刺 + 年中房企推货。光谷上半年累计 <b>9,423 套</b>，居全市第一，同比约 <b>+80%</b>（中指院口径）。<span class="src">来源：武汉市住和城市更新局 6月简报；中指研究院</span>'},
+  {d:'2026-08-04', t:'官方 7 月数据：全市 7,725 套（环比 -40.2%），东湖高新 1,330 套', de:'17.2%，淡季回落',
+   det:'7 月简报：全市 <b>7,725 套</b>，环比 <b>-40.2%</b>（年中冲高后淡季回落）；东湖高新区 <b>1,330 套</b>，占全市 <b>17.2%</b>。属正常季节性回调，非趋势反转。1-7 月光谷累计 10,753 套，全市 53,365 套，光谷占比 20.1%。8 月 17-23 日当周全市 2,077 套（环比 +2.7%），淡季企稳迹象。<span class="src">来源：武汉市住和城市更新局 7月简报；房天下周报（2026-08-24）</span>'},
+  {d:'2026-08-17', t:'国家统计局 70 城：武汉新房环比 +0.1%（连续3个月上行），二手环比持平', de:'同比新房-2.1% / 二手-7.0%',
+   det:'国家统计局公布 7 月 70 城房价：武汉新房环比 <b>+0.1%</b>（4月持平→5月+0.2%→6月+0.1%→7月+0.1%，<b>连续 3 个月上行</b>）；二手环比 <b>0.0%</b>（持平，降幅收窄）。同比：新房 -2.1%、二手 -7.0%。中指院李国政解读：主城区成交占比超七成，<b>四代宅是拉动新房企稳的主引擎</b>。这是"核心区企稳"的国家级数据印证。<span class="src">来源：国家统计局 70城（2026-08-17发布）；湖北省住建厅转载楚天都市报（2026-08-18）</span>'},
+  {d:'2026-08-20', t:'LPR 公布：1年期 3.0%、5年期 3.5%，连续 15 个月不变', cls:'done', de:'武汉金融局同步转载',
+   det:'全国银行间同业拆借中心公布：1 年期 LPR <b>3.0%</b>、5 年期以上 LPR <b>3.5%</b>，与 7 月持平，<b>连续 15 个月不变</b>。武汉金融局 8-21 同步转载。公积金贷款利率：5 年以上首套 <b>2.6%</b>/二套 <b>3.075%</b>。月供参考：100万/30年/公积金首套 ≈ 4,003 元，二套 ≈ 4,257 元。利率长期稳定 = 贷款成本可预测，利好购房决策。<span class="src">来源：全国银行间同业拆借中心（2026-08-20）；武汉金融局（2026-08-21）</span>'},
+  {d:'2026-08-21', t:'第14次土拍：P(2026)063 光谷地块 122 轮竞价、溢价 48.9%、楼面价 14,738 元/㎡（今年最高）', cls:'warn', de:'官方：连续三场土拍"场场溢价"',
+   det:'武汉市第 14 次土拍：P(2026)063 号地块（东湖高新区步行街南路以南、加阳路以东），土地 2.33 公顷、建面 5.04 万㎡。<b>四川邦泰、华润置地、绿城、保利发展、厦门建发等 9 家房企 122 轮竞价</b>，最终由十堰汉成置业（深圳汉成盛泽）竞得。成交价 <b>7.428 亿</b>、楼面价 <b>14,738 元/㎡</b>、溢价率 <b>48.9%</b>——2026 年武汉住宅用地溢价率最高地块。官方定调：7 月末以来"连续三场土拍，次次有竞争、场场现溢价"。<b>楼面 1.47 万 → 未来售价大概率 2 万+</b>，与当前中心城北四代宅网签（1.7-1.95 万）形成倒挂支撑。<span class="src">来源：武汉市自然资源和城乡建设局官网（2026-08-21）</span>'},
+  {d:'2026-08-25 ~ 27', t:'补贴窗口结束后新政进入落地兑现期；8月17-23日周成交 2,077 套（环比 +2.7%）', cls:'warn', de:'新一阶段操作窗口（12-31 前按区认首套）',
+   det:'1.5% 补助窗口结束后，汉七条其余措施进入落地兑现期。媒体（房探 8-27）通报：商贷按区认首套、公积金优惠等 5 月出台措施正在执行，签约前按条款确认即可。8 月 17-23 日（第 34 周）全市新房成交 <b>2,077 套</b>，环比 <b>+2.7%</b>（房天下周报）。<b>当前操作窗口：12-31 前签约可享按区认首套（商贷利率折扣）</b>。<span class="src">来源：房探（2026-08-27）；房天下武汉周报（2026-08-24）</span>'},
+  {d:'2026-08-27/28', t:'央行+金融监管总局印发《房地产信贷管理意见》——房贷期限最长 40 年、期房个贷延至竣工备案后才发放', cls:'warn', de:'金融监管总局同步发布 5 项配套办法（试行）',
+   det:'中国人民银行、国家金融监督管理总局联合印发《关于改革完善房地产信贷管理 推动加快构建房地产发展新模式的意见》（8-27 印发，8-28 公布，<b>自印发之日起施行</b>）。核心：<b>①个人房贷期限 30→40 年</b> <b>②月供收入比≤50% 且总债务/收入≤60%</b> <b>③期房个贷延至竣工备案后发放</b>（原为主体封顶）<b>④首付底线不变</b>。金融监管总局同日发布 5 项配套办法（试行）；证监会支持房企再融资与商业 REITs。<b>影响：期房"背两年月供等房"痛点消除，烂尾风险大幅下降</b>；详见文档 05-第八节、06-新政前后对比。<span class="src">来源：新华社、中新社（2026-08-28）；新浪财经/界面/上观新闻（2026-08-28 晚）</span>'}
 ];
 
 /* ============ 图表 ============ */
@@ -367,14 +494,12 @@ function chartMonthly(){
   var y1=function(v){ return T + plotH*(1-v/maxV); };
   var y2=function(p){ return T + plotH*(1-p/maxP); };
   var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">';
-  // 网格
   for(var g=0;g<=4;g++){
     var yy=T+plotH*g/4;
     s+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#eef2f7" stroke-width="1"/>';
     s+='<text x="'+(L-6)+'" y="'+(yy+4)+'" font-size="10" fill="#94a3b8" text-anchor="end">'+fmt(Math.round(maxV*(1-g/4)))+'</text>';
     if(g>0){ s+='<text x="'+(W-R-4)+'" y="'+(yy+4)+'" font-size="9" fill="#a78bfa" text-anchor="start">'+Math.round(maxP*(1-g/4))+'%</text>'; }
   }
-  // 折线：全市
   var p1='', p2='', p3='';
   monthData.forEach(function(d,i){
     p1+= (i? 'L':'M')+x(i)+' '+y1(d.wh)+' ';
@@ -426,6 +551,64 @@ function chart70(){
   el('ch-70city').innerHTML=s;
 }
 
+/* ============ 看房地图（示意性方位图） ============ */
+function chartMap(){
+  var W=720,H=480;
+  var sectors=[
+    {n:'花山',         x:470,y:30, w:170,h:75, c:'#d1fae5'},
+    {n:'华科大',       x:100,y:40, w:130,h:70, c:'#dbeafe'},
+    {n:'关山核心',     x:110,y:155,w:145,h:95, c:'#fef3c7'},
+    {n:'光谷核心',     x:255,y:185,w:90, h:60, c:'#fce7f3'},
+    {n:'中心城北',     x:340,y:145,w:175,h:100,c:'#e0e7ff'},
+    {n:'中心城南',     x:340,y:265,w:175,h:70, c:'#f3e8ff'},
+    {n:'金融港',       x:195,y:290,w:135,h:75, c:'#dcfce7'},
+    {n:'光谷南',       x:250,y:385,w:120,h:55, c:'#ffedd5'},
+    {n:'左岭/未来科技城',x:540,y:120,w:150,h:70,c:'#fee2e2'}
+  ];
+  var nodes=[
+    // 第一梯队 蓝
+    {n:'万科璞拾光屿', x:380,y:165, c:'#2563eb', info:'新房五代 · 1.69-1.95万 · 已售罄'},
+    {n:'光谷润璟',     x:415,y:200, c:'#2563eb', info:'新房 · ≈1.81万 · 同济旁7月168套'},
+    {n:'光合新澍',     x:160,y:175, c:'#2563eb', info:'新房四代 · 1.5-1.7万 · 49分钟日光'},
+    {n:'中建光谷之星', x:460,y:180, c:'#2563eb', info:'二手高端 · ≈1.68万 · 小米总部旁'},
+    {n:'联投驿园',     x:365,y:215, c:'#2563eb', info:'二手刚改 · ≈1.25万 · 11号线直连'},
+    {n:'朗诗里程',     x:355,y:195, c:'#2563eb', info:'二手刚需 · 8千-1万 · 止跌=买入'},
+    {n:'招商原颂',     x:150,y:200, c:'#2563eb', info:'新房准四代 · 1.62万 · 双地铁'},
+    {n:'维佳关山郡',   x:185,y:215, c:'#2563eb', info:'新房现房 · 1.4万 · 地铁口'},
+    {n:'保利时代南',   x:130,y:185, c:'#2563eb', info:'二手学区 · 1.42-1.75万 · 双学区'},
+    {n:'中建大公馆',   x:120,y:165, c:'#2563eb', info:'新房+二手 · 光谷十小+实验'},
+    // 第二梯队 绿
+    {n:'现代森林小镇', x:215,y:305, c:'#16a34a', info:'二手学区 · 1.15-1.34万 · 顶级学区+地铁'},
+    {n:'金地·铂翠',    x:250,y:330, c:'#16a34a', info:'新房四代 · 1.24-1.35万 · 金融港销冠'},
+    {n:'万科光谷锦曜', x:270,y:300, c:'#16a34a', info:'二手次新 · 1.46万 · 盯成交量'},
+    {n:'泛悦城',       x:140,y:70,  c:'#16a34a', info:'二手标杆 · 1.67-1.78万 · 最抗跌(250万+)'},
+    // 中心城南 紫
+    {n:'绿地理想城',   x:360,y:285, c:'#8b5cf6', info:'二手 · 12,400 · 南区主力'},
+    {n:'北辰优+(南)',  x:410,y:300, c:'#8b5cf6', info:'二手 · 13,300'},
+    {n:'正荣紫阙台',   x:385,y:270, c:'#8b5cf6', info:'二手 · 13,100 · 避开最南端'},
+    // 对照 灰
+    {n:'联投花山河',   x:500,y:55,  c:'#94a3b8', info:'新房 · 14-15千 · 花山TOD'},
+    {n:'左岭新盘',     x:580,y:150, c:'#94a3b8', info:'新房 · 7-8.3千 · 远郊洼地'}
+  ];
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">';
+  // 方位标
+  s+='<text x="'+(W-12)+'" y="20" font-size="13" fill="#94a3b8" text-anchor="end">北 ↑</text>';
+  s+='<text x="'+(W-12)+'" y="'+(H-8)+'" font-size="11" fill="#cbd5e1" text-anchor="end">东 →</text>';
+  // 板块底色
+  sectors.forEach(function(sec){
+    s+='<rect x="'+sec.x+'" y="'+sec.y+'" width="'+sec.w+'" height="'+sec.h+'" rx="10" fill="'+sec.c+'" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>';
+    s+='<text x="'+(sec.x+sec.w/2)+'" y="'+(sec.y+16)+'" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">'+sec.n+'</text>';
+  });
+  // 楼盘节点
+  nodes.forEach(function(nd){
+    s+='<g class="mnode"><circle cx="'+nd.x+'" cy="'+nd.y+'" r="5.5" fill="'+nd.c+'" stroke="#fff" stroke-width="1.5"/>';
+    s+='<title>'+nd.n+'｜'+nd.info+'</title></g>';
+    s+='<text x="'+(nd.x+9)+'" y="'+(nd.y+3.5)+'" font-size="10" fill="#334155" font-weight="600">'+nd.n+'</text>';
+  });
+  s+='</svg>';
+  el('ch-map').innerHTML=s;
+}
+
 /* ============ 时间线 ============ */
 function renderTimeline(){
   var h='';
@@ -434,7 +617,8 @@ function renderTimeline(){
     h+='<div class="'+cls+'">';
     h+='<div class="dt">'+it.d+'</div>';
     h+='<div class="tt">'+it.t+'</div>';
-    if(it.de){ h+='<div class="de">'+it.de+'</div>'; }
+    if(it.de){ h+='<div class="de">来源：'+it.de+'</div>'; }
+    if(it.det){ h+='<div class="det">'+it.det+'</div>'; }
     h+='</div>';
   });
   el('timeline').innerHTML=h;
@@ -452,12 +636,13 @@ function renderSrc(){
     '7. 中指研究院（华中）半年度/7月数据（经央广网 2026-07-06、腾讯新闻 2026-08-09 转载）',
     '8. 极目新闻：4月底挂牌19.3万套、前4个月二手成交（房管局口径）；腾讯新闻易居数据（2026-08-26）',
     '9. 安居客武汉（光谷东 7月挂牌均价 13,203元/㎡，❌挂牌参考）；房天下武汉周报（2026-08-24）',
-    '10. 小区成交价明细来源：贝壳成交记录/购房荟月报（2026-07~08，见文档01/02）'
+    '10. 小区成交价明细来源：贝壳成交记录/购房荟月报（2026-07~08，见文档01/02）',
+    '11. 8·28信贷新政：新华社、中新社（2026-08-28）；新浪财经/界面/上观新闻解读（2026-08-28晚）'
   ];
   el('src-list').innerHTML=s.map(function(x){return '<div>· '+x+'</div>';}).join('');
 }
 
-function fmtC(){ chartMonthly(); chart70(); renderTimeline(); renderSrc(); }
+function fmtC(){ chartMonthly(); chart70(); chartMap(); renderTimeline(); renderSrc(); }
 
 /* ============ 标签页切换（支持 # 锚点直达） ============ */
 var tabs=document.querySelectorAll('.tab');
