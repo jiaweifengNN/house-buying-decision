@@ -112,6 +112,17 @@
   footer{margin-top:20px; font-size:12px; color:var(--mut); text-align:center;}
   .src{font-size:11.5px; color:var(--mut); line-height:1.7;}
   svg text{font-family:inherit;}
+/* ---- 宜居有嘉楼栋分布弹窗 ---- */
+.plan-btn{margin-top:10px;background:#2563eb;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer}
+.plan-btn:hover{background:#1d4ed8}
+.lnk{color:#2563eb;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.plan-mask{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:999;align-items:center;justify-content:center;padding:16px}
+.plan-mask.on{display:flex}
+.plan-modal{background:#fff;color:#0f172a;border-radius:14px;width:100%;max-width:880px;max-height:92vh;overflow:auto;padding:16px 18px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.plan-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:15px}
+.plan-x{cursor:pointer;font-size:24px;line-height:1;color:#64748b;padding:0 6px}
+.plan-x:hover{color:#0f172a}
+.plan-notes{font-size:13px;color:#334155;line-height:1.9;margin-top:10px}
 </style>
 </head>
 <body>
@@ -261,7 +272,7 @@
       <table>
         <tr><th class="l">楼盘</th><th>产品</th><th>网签成交均价</th><th class="l">热度/动态</th></tr>
         <tr><td class="l">万科·璞拾光屿</td><td>五代立体住区 101-169㎡</td><td>精装高层16,924-17,832 / 小高层19,150-19,542</td><td class="l">上半年网签474套全武汉TOP3，已售罄</td></tr>
-        <tr><td class="l">光谷润璟</td><td>高层</td><td>≈18,110</td><td class="l">7月成交168套/3.54亿；同济光谷院区旁</td></tr>
+        <tr><td class="l">光谷润璟</td><td>高层(精装)</td><td>≈18,110</td><td class="l">7月成交168套/3.54亿；关山·秦云路×荷叶山路（精装含空调+地暖）</td></tr>
         <tr><td class="l">深业翠微谷</td><td>小高层</td><td>13,866（毛坯）</td><td class="l">临政务中心，低密准四代</td></tr>
         <tr><td class="l">大家·玖宸</td><td>高层+叠拼</td><td>≈13,000起</td><td class="l">周认购20套+，叠拼165-175㎡蓄客中</td></tr>
         <tr><td class="l">城投南山长投·领峯</td><td>高层</td><td>低价准现房策略</td><td class="l">6月加推9#去化较好，价格门槛最低一档</td></tr>
@@ -377,13 +388,15 @@
           <div class="map-fallback-sub">下方"看房名单"表格仍有完整楼盘与价位信息</div>
         </div>
         <div class="map-legend">
-          <span><i style="background:#2563eb;"></i> 第一梯队（中心城北/关山）</span>
-          <span><i style="background:#16a34a;"></i> 第二梯队（金融港/华科大）</span>
+          <span><i style="background:#2563eb;"></i> 第一梯队</span>
+          <span><i style="background:#16a34a;"></i> 第二梯队</span>
           <span><i style="background:#8b5cf6;"></i> 中心城南（谨慎）</span>
-          <span><i style="background:#94a3b8;"></i> 对照参考（花山）</span>
-          <span style="margin-left:auto;color:var(--mut);font-size:11px;">📍 坐标为板块锚点估值，个别新盘标记为最近地标</span>
+          <span><i style="background:#94a3b8;"></i> 对照（花山）</span>
+          <span><i style="background:#f59e0b;"></i> 在售新面孔（图2片区）</span>
+          <span><i style="background:#e11d48;"></i> 待开/待拍地块</span>
+          <span style="margin-left:auto;color:var(--mut);font-size:11px;">📍 新盘坐标为地标锚点估值(approx)</span>
         </div>
-        <div class="map-tip">真实腾讯地图瓦片，可拖动/缩放。点击楼盘标记弹出类型与目标价位。坐标基于公开地图锚点，看房前请用导航复核精确位置。</div>
+        <div class="map-tip">真实腾讯地图瓦片，可拖动/缩放；点击标记看详情，点击「湖北科投·宜居有嘉」直接弹出楼栋分布图。橙/玫红为 2026-08-29 依据片区供应图（图2）新增的标的，标⚠️者案名或价格待实地核实；看房前请用导航复核位置。</div>
       </div>
     </div>
 
@@ -392,7 +405,7 @@
       <table>
         <tr><th class="l">标的</th><th>类型</th><th>目标价位</th><th class="l">备注</th></tr>
         <tr><td class="l">万科璞拾光屿</td><td><span class="badge b-blue">新房</span></td><td>1.69-1.95万</td><td class="l">已售罄，关注尾盘/退房</td></tr>
-        <tr><td class="l">光谷润璟</td><td><span class="badge b-blue">新房</span></td><td>≈1.81万</td><td class="l">同济光谷院区旁，7月168套</td></tr>
+        <tr><td class="l">光谷润璟</td><td><span class="badge b-blue">新房精装</span></td><td>1.81-1.95万</td><td class="l">秦云路×荷叶山路 · 精装含中央空调+地暖 · 7月168套 · 2028-06交付</td></tr>
         <tr><td class="l">光合新澍（加推）</td><td><span class="badge b-blue">新房四代</span></td><td>日光档 1.5-1.7万</td><td class="l">得房率110-122%，加推即登记</td></tr>
         <tr><td class="l">中建光谷之星</td><td><span class="badge b-gray">二手高端</span></td><td>≈1.68万</td><td class="l">政务中心/小米总部旁</td></tr>
         <tr><td class="l">联投驿园</td><td><span class="badge b-gray">二手刚改</span></td><td>≈1.25万</td><td class="l">11号线直连</td></tr>
@@ -424,6 +437,50 @@
       <div class="note">中心城南交付齐全但配套兑现慢，流通性弱。除非工作就在附近或预算敏感，不建议作为首选；若买需做好 8 年以上持有准备。</div>
     </div>
     <div class="card">
+      <h2><span class="tag" style="background:#f59e0b;">图2片区</span> 在售新面孔（2026-08-29 依据片区供应图逐盘核实）</h2>
+      <table>
+        <tr><th class="l">标的</th><th>类型</th><th>价格</th><th class="l">优点 / 缺点</th></tr>
+        <tr><td class="l">旭辉·千山凌云</td><td><span class="badge b-blue">新房</span></td><td>备案2.1万/二手1.87-1.98万</td><td class="l">优:关山核心·旭辉品质；缺:容积率5.21超高层密</td></tr>
+        <tr><td class="l">联投清能·曼雲天樾</td><td><span class="badge b-blue">新房</span></td><td>1.85-1.86万毛坯</td><td class="l">优:联投国企·创业街地段；缺:毛坯·112㎡起总价200万+</td></tr>
+        <tr><td class="l">融创光谷壹号院</td><td><span class="badge b-blue">新房尾盘</span></td><td>≈1.75-1.85万</td><td class="l">优:关山大道大盘·2026-11交付转现；缺:融创品牌信用史</td></tr>
+        <tr><td class="l">融创武汉桃花源</td><td><span class="badge b-gray">合院别墅</span></td><td>500万起</td><td class="l">改善另类选项，流动性弱</td></tr>
+        <tr><td class="l">KIC创新天地·漫序</td><td><span class="badge b-blue">新房</span></td><td>≈1.45万(105/125㎡)</td><td class="l">优:瑞安新天地商业+11号线光谷六路；缺:中心城配套兑现中</td></tr>
+        <tr><td class="l">招商天青府</td><td><span class="badge b-blue">新房</span></td><td>1.32-1.45万</td><td class="l">优:招商央企·中心城价格洼地；缺:位置偏中心城南</td></tr>
+        <tr><td class="l">香港置地·元庐</td><td><span class="badge b-gray">二手次新</span></td><td>贝壳参考≈2.11万</td><td class="l">优:港资品质·已交付·光谷外校旁；缺:总价高</td></tr>
+        <tr><td class="l">中建壹品汉韵公馆</td><td><span class="badge b-blue">新房精装四代</span></td><td>≈1.9万</td><td class="l">优:央企精装·171㎡大四房；缺:总价350万级</td></tr>
+        <tr><td class="l">驿山高尔夫观岭</td><td><span class="badge b-gray">低密</span></td><td>1.65万起</td><td class="l">优:九峰低密环境；缺:远·依赖车行</td></tr>
+        <tr><td class="l">南山锦宸</td><td><span class="badge b-green">准现房</span></td><td>备案1.06万/总价93-100万</td><td class="l">优:光谷最低总价上车·2026-07交付；缺:周店出核心·去化弱(克而瑞口径成交7316)</td></tr>
+        <tr><td class="l">绿城光谷桂府2期</td><td><span class="badge b-blue">新房</span></td><td>1.14-1.35万毛坯</td><td class="l">优:准现房·佛祖岭稀缺供应；缺:距地铁远·板块界面一般</td></tr>
+        <tr><td class="l">大家·玖宸</td><td><span class="badge b-blue">新房四代</span></td><td>1.1万起/均价1.3万</td><td class="l">优:中心城南纯四代+叠拼首例·去化快；缺:毛坯·同质供应多·2027底-2028交付</td></tr>
+        <tr><td class="l">⚠️ 图2口径待核盘</td><td><span class="badge b-gray">待核</span></td><td>—</td><td class="l">旭辉御府1.2万起 / 广电光谷壹1.2万 / 城投长悦第府1.08万 / 华壹公馆1.2万 / 南山盘古8000起 / 北岸公馆1.7万起 / 洛伽天玺1.58万 / 翡丽天玺1.4万 / 月泊澳居1.25万起 / 招商喻园首1.2万起 / 深业维玺谷1.3万起 —— 均为供应图标注，案名/价格未逐一核实</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2><span class="tag" style="background:#e11d48;">图2片区</span> 待开 / 待拍地块（预测价 = 楼面价×1.4-1.6 或同板块竞品比价）</h2>
+      <table>
+        <tr><th class="l">地块/项目</th><th>状态</th><th>楼面价/预测</th><th class="l">优点 / 缺点</th></tr>
+        <tr><td class="l">汉成·光谷广场项目 P(2026)063</td><td><span class="badge b-blue">已拍待开</span></td><td>楼面价14,738 → 预测2.0-2.2万</td><td class="l">优:光谷广场核心·低密小而精·新地王标杆；缺:十堰汉成民企首进核心·高楼面价→高价风险</td></tr>
+        <tr><td class="l">光谷广场三合项目 P(2026)032</td><td><span class="badge b-blue">已拍待开</span></td><td>楼面价11,169 → 预测1.7-1.9万</td><td class="l">优:步行街旁核心地段；缺:三合民企·周边界面老</td></tr>
+        <tr><td class="l">中建壹品·光谷元著</td><td><span class="badge b-blue">待开(预计26-09首开)</span></td><td>预测1.4-1.6万毛坯</td><td class="l">优:央企四代100-157㎡·2028-05交付；缺:高新二路界面待成熟·价格未揭晓</td></tr>
+        <tr><td class="l">国华·光谷华府</td><td><span class="badge b-blue">已报规待入市</span></td><td>楼面价7,975 → 预测1.4-1.7万</td><td class="l">优:南区首个报规真四代·户均147㎡·空中花园；缺:大户型去化压力</td></tr>
+        <tr><td class="l">光谷地产·金地铂樾</td><td><span class="badge b-blue">待售</span></td><td>楼面价6,900 → 预测1.2-1.35万</td><td class="l">优:光谷建设国资+金地代建·对标铂翠；缺:小盘·⚠️位置信息不透明</td></tr>
+        <tr><td class="l">城投绿城·雲庐</td><td><span class="badge b-blue">待售</span></td><td>放风1.8万起</td><td class="l">优:绿城代建·低密叠墅稀缺；缺:总价高·商住混合大盘</td></tr>
+        <tr><td class="l"><span class="lnk" onclick="showPlan()">🏠 湖北科投·宜居有嘉（点击看楼栋分布）</span></td><td><span class="badge b-blue">蓄客待开(9月)</span></td><td>预测毛坯1.1-1.4万</td><td class="l">优:8栋725户五代宅·90-130㎡总价110-160万·国企；缺:周边在建3-5年成熟·无近距离地铁</td></tr>
+        <tr><td class="l">光谷地产·汤逊湖项目</td><td><span class="badge b-blue">待定</span></td><td>预测1.2-1.5万(低置信)</td><td class="l">优:湖景低密·光谷建设国资；缺:江夏庙山界面·配套弱</td></tr>
+        <tr><td class="l">未拍/待核地块</td><td><span class="badge b-gray">待拍</span></td><td>—</td><td class="l">汽车社区地块、金域花园地块（光谷广场北）；宜居南著（宜居系，案名待核）；光谷宜X地块（中心城东南，案名待核）</td></tr>
+      </table>
+    </div>
+    <div class="card" id="yy-card">
+      <h2><span class="tag b-purple">重点新盘</span> 湖北科投·宜居有嘉（高新三路南 × 月荷路西）</h2>
+      <div class="note">
+        <b>一期8栋约725户 · 第五代住宅（抬板无地下室）· 容积率1.93 · 毛坯（推定）· 预计2028年交付 · 开发商：武汉宜居科兴置业（湖北科投/东湖高新国资系）</b><br>
+        户型：90㎡三房两卫 / 113㎡四房 / 128、130㎡四房（16-17F小高层）。价格未备案，同板块锚点：玖宸均价1.3万、区域楼面价约7000元/㎡ → 预测毛坯 <b>1.1-1.4万（总价约110-160万）</b>。<br>
+        配套：光谷十八小东校区、华师武汉新城实验初中；壹为邻商业已开业（2026-07）、大悦城/龙湖天街在建、儿童医院光谷院区约3km（2027年投用）。<br>
+        ⚠️ 缺点：周边仍以在建为主，成熟需3-5年；无近距离地铁；价格未揭晓存在高开风险。
+      </div>
+      <button class="plan-btn" onclick="showPlan()">🏠 查看楼栋分布图（8栋排布 + 选栋建议）</button>
+    </div>
+    <div class="card">
       <h2><span class="tag">对照</span> 不在重点（感知用）</h2>
       <div class="note">花山·联投花山河（新房14-15千）；左岭（远郊现状）；筛查时对照"挂牌价-成交价差"纪律：看房先问同小区近3个月成交价，挂牌超本表上限 15% 按成交价砍。</div>
     </div>
@@ -448,6 +505,76 @@
   </div>
 
   <footer>仅供个人购房决策参考，不构成投资建议 · 数据基准日 2026-08-29 · 随项目 00-06 文档同步更新</footer>
+</div>
+
+<!-- 宜居有嘉 楼栋分布弹窗 -->
+<div id="planMask" class="plan-mask" onclick="if(event.target===this)hidePlan()">
+  <div class="plan-modal">
+    <div class="plan-head">
+      <b>🏠 湖北科投·宜居有嘉 · 一期楼栋分布（据开发商放风图重绘，示意）</b>
+      <span class="plan-x" onclick="hidePlan()">×</span>
+    </div>
+    <svg viewBox="0 0 780 500" style="width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;" xmlns="http://www.w3.org/2000/svg">
+      <!-- 有轨电车 L2（北界） -->
+      <line x1="0" y1="24" x2="780" y2="24" stroke="#d97706" stroke-width="3" stroke-dasharray="14,7"/>
+      <text x="10" y="16" font-size="12" fill="#b45309" font-weight="bold">⬅ 有轨电车 L2（噪音源①）</text>
+      <!-- 高新三路 -->
+      <rect x="0" y="36" width="780" height="26" fill="#e2e8f0"/>
+      <text x="390" y="54" font-size="13" fill="#475569" text-anchor="middle" font-weight="bold">高 新 三 路（噪音源②，7#/8# 正临）</text>
+      <!-- 月荷路（东界） -->
+      <rect x="718" y="62" width="24" height="438" fill="#e2e8f0"/>
+      <text x="730" y="280" font-size="12" fill="#475569" text-anchor="middle" transform="rotate(90 730 280)">月荷路（建设中）</text>
+      <!-- 豹溪路（西界） -->
+      <rect x="24" y="62" width="20" height="438" fill="#eef2f7"/>
+      <text x="34" y="280" font-size="11" fill="#94a3b8" text-anchor="middle" transform="rotate(90 34 280)">豹溪路</text>
+      <!-- 中央园林 -->
+      <ellipse cx="415" cy="282" rx="96" ry="54" fill="#d1fae5" opacity="0.7"/>
+      <text x="415" y="286" font-size="11" fill="#059669" text-anchor="middle">中央园林</text>
+      <!-- 第一排（北）：7# / 8# 临路 -->
+      <rect x="265" y="86" width="140" height="42" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="335" y="112" font-size="15" fill="#1e3a8a" text-anchor="middle" font-weight="bold">7# · 26F</text>
+      <text x="335" y="146" font-size="12" fill="#475569" text-anchor="middle">113-90-90-113</text>
+      <rect x="525" y="86" width="140" height="42" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="595" y="112" font-size="15" fill="#1e3a8a" text-anchor="middle" font-weight="bold">8# · 26F</text>
+      <text x="595" y="146" font-size="12" fill="#475569" text-anchor="middle">113-90-90-113</text>
+      <text x="465" y="80" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="bold">⚠️ 临路噪音/粉尘面 · 底层易受遮挡</text>
+      <!-- 第二排（中）：4# / 6# / 5# -->
+      <rect x="150" y="200" width="140" height="42" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="220" y="226" font-size="15" fill="#1e3a8a" text-anchor="middle" font-weight="bold">4# · 26F</text>
+      <text x="220" y="260" font-size="12" fill="#475569" text-anchor="middle">113-90-90-113</text>
+      <rect x="355" y="200" width="120" height="42" rx="4" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+      <text x="415" y="226" font-size="15" fill="#065f46" text-anchor="middle" font-weight="bold">6# · 17F</text>
+      <text x="415" y="260" font-size="12" fill="#475569" text-anchor="middle">130-128=128-130</text>
+      <rect x="545" y="200" width="140" height="42" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="615" y="226" font-size="15" fill="#1e3a8a" text-anchor="middle" font-weight="bold">5# · 26F</text>
+      <text x="615" y="260" font-size="12" fill="#475569" text-anchor="middle">113-90-90-113</text>
+      <!-- 第三排（南）：1# / 3# / 2# -->
+      <rect x="150" y="330" width="140" height="42" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="220" y="356" font-size="15" fill="#1e3a8a" text-anchor="middle" font-weight="bold">1# · 25F</text>
+      <text x="220" y="390" font-size="12" fill="#475569" text-anchor="middle">113-90-90-113</text>
+      <rect x="355" y="330" width="120" height="42" rx="4" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+      <text x="415" y="356" font-size="15" fill="#065f46" text-anchor="middle" font-weight="bold">3# · 16F</text>
+      <text x="415" y="390" font-size="12" fill="#475569" text-anchor="middle">130-128=128-130</text>
+      <rect x="545" y="330" width="140" height="42" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="615" y="356" font-size="15" fill="#1e3a8a" text-anchor="middle" font-weight="bold">2# · 24F</text>
+      <text x="615" y="390" font-size="12" fill="#475569" text-anchor="middle">113-90-90-113</text>
+      <!-- 图例 -->
+      <rect x="60" y="440" width="14" height="14" fill="#dbeafe" stroke="#2563eb"/>
+      <text x="80" y="452" font-size="12" fill="#334155">24-26F 高层（90/113㎡）</text>
+      <rect x="250" y="440" width="14" height="14" fill="#d1fae5" stroke="#059669"/>
+      <text x="270" y="452" font-size="12" fill="#334155">16-17F 小高层（128/130㎡ 四房）</text>
+      <text x="470" y="452" font-size="12" fill="#64748b">户型格式：边户-中户=中户-边户（面宽序）</text>
+      <text x="60" y="480" font-size="12" fill="#64748b">一期8栋 · 约725户 · 容积率1.93 · 第五代住宅（抬板无地下室）· 预计2028年交付 · 毛坯（推定）</text>
+    </svg>
+    <div class="plan-notes">
+      <b>选栋建议（结合朝向与噪音面）：</b><br>
+      ① <b>安静+改善优先：3#（16F）＞ 6#（17F）</b>——中央位置、总楼层低、128/130㎡四房，离高新三路与有轨电车最远；<br>
+      ② <b>均衡：4#、5#</b>——中排26F，113/90㎡，注意与前排楼间距和 Mid-Floor 视野；<br>
+      ③ <b>预算优先：1#、2#</b>——南排，远离高新三路噪音，90㎡中户（两梯四户中间套）总价门槛最低；<br>
+      ④ <b>谨慎：7#、8#</b>——正临高新三路 + 有轨电车L2 双噪音源（供应图原话「对业主的居住舒适度影响很大」即指此），底层还受前排遮挡，除非低价否则放弃；<br>
+      ⑤ 户型说明：90㎡为中间户（单向采光），113/128/130㎡为边户（南北通透），同价优先边户。
+    </div>
+  </div>
 </div>
 
 <script>
@@ -568,34 +695,72 @@ function chart70(){
 function chartMap(){
   var box=el('ch-map');
   if(!window.TMap){ box.style.display='none'; el('mapFallback').style.display='flex'; return; }
-  // 真实经纬度（GCJ-02，腾讯地图坐标系）。新盘为最近地标锚点估值，看房前用导航复核。
+  // 真实经纬度（GCJ-02，腾讯地图坐标系）。tier: 1第一梯队 2第二梯队 3中心城南 4对照
+  // 5=图2片区在售新面孔 6=待开/待拍地块。新盘多为地标锚点估值(approx)，看房前用导航复核。
   var P=[
-    // 第一梯队 蓝 中心城北/关山
-    {n:'联发·光合新澍', lat:30.4955, lng:114.4088, c:'#2563eb', tier:1, info:'新房四代宅 · 1.5-1.7万 · 49分钟日光 · 关山近7年首个日光盘'},
-    {n:'万科璞拾光屿', lat:30.4568, lng:114.4395, c:'#2563eb', tier:1, info:'新房五代住区 · 1.69-1.95万 · 已售罄，关注尾盘/退房'},
-    {n:'光谷润璟',     lat:30.4625, lng:114.4285, c:'#2563eb', tier:1, info:'新房高层 · ≈1.81万 · 同济光谷院区旁，7月成交168套'},
-    {n:'中建光谷之星', lat:30.4595, lng:114.4398, c:'#2563eb', tier:1, info:'二手高端 · ≈1.68万 · 政务中心/小米总部旁'},
-    {n:'联投驿园',     lat:30.4572, lng:114.4432, c:'#2563eb', tier:1, info:'二手刚改 · ≈1.25万 · 11号线直连'},
-    {n:'朗诗里程',     lat:30.4560, lng:114.4455, c:'#2563eb', tier:1, info:'二手刚需 · 8千-1万 · 观察止跌信号=买入信号'},
-    {n:'招商原颂',     lat:30.4985, lng:114.4068, c:'#2563eb', tier:1, info:'新房准四代 · 1.62万基准 · 双地铁'},
-    {n:'维佳·关山郡', lat:30.5008, lng:114.4050, c:'#2563eb', tier:1, info:'新房现房 · 1.4万基准 · 地铁口·K11对面'},
-    {n:'保利时代(南/北)', lat:30.4948, lng:114.4095, c:'#2563eb', tier:1, info:'二手学区 · 1.42-1.75万 · 光谷一小+实验'},
-    {n:'中建大公馆',   lat:30.4925, lng:114.4098, c:'#2563eb', tier:1, info:'新房+二手 · 光谷十小+实验 · 四期&二手对比'},
-    // 第二梯队 绿 金融港/华科大
-    {n:'现代森林小镇', lat:30.4735, lng:114.4168, c:'#16a34a', tier:2, info:'二手学区 · 1.15-1.34万 · 顶级学区+地铁'},
-    {n:'金地·铂翠',    lat:30.4755, lng:114.4162, c:'#16a34a', tier:2, info:'新房四代 · 1.24-1.35万 · 金融港销冠，94-154㎡'},
-    {n:'万科光谷锦曜', lat:30.4748, lng:114.4158, c:'#16a34a', tier:2, info:'二手次新 · 1.46万 · 盯成交量是否放大'},
-    {n:'泛悦城',       lat:30.5170, lng:114.4155, c:'#16a34a', tier:2, info:'二手标杆 · 1.67-1.78万 · 华科大板块最抗跌(预算250万+)'},
-    {n:'琨瑜府',       lat:30.5190, lng:114.4188, c:'#16a34a', tier:2, info:'二手 · 1.65-1.73万 · 华科大学区·品牌次新'},
-    // 中心城南 紫（谨慎）
-    {n:'绿地国际理想城', lat:30.4480, lng:114.4352, c:'#8b5cf6', tier:3, info:'二手 · 12,400 · 南区主力 · 持有8年+'},
-    {n:'北辰优+',     lat:30.4505, lng:114.4388, c:'#8b5cf6', tier:3, info:'二手 · 13,300 · 中心城'},
-    {n:'正荣紫阙台',   lat:30.4492, lng:114.4370, c:'#8b5cf6', tier:3, info:'二手 · 13,100 · ⚠️ 避开南区最南端边缘地块'},
-    // 对照 灰 花山
-    {n:'联投·花山河',  lat:30.5410, lng:114.4590, c:'#94a3b8', tier:4, info:'新房 · 毛坯13-13.5千/精装14-15千 · 花山TOD大盘'}
+    // ── 第一梯队 蓝（关山/中心城核心）──
+    {n:'联发·光合新澍', lat:30.4955, lng:114.4088, tier:1, info:'新房四代宅 · 1.5-1.7万 · 49分钟日光 · 关山近7年首个日光盘'},
+    {n:'万科璞拾光屿', lat:30.5010, lng:114.4920, tier:1, info:'新房五代住区 · 1.69-1.95万 · 已售罄，关注尾盘/退房 · 中心城北（坐标已按板块修正）'},
+    {n:'光谷润璟',     lat:30.4790, lng:114.4210, tier:1, info:'华润·精装交付(中央空调+全屋地暖) · 备案≈1.81万/挂牌1.9-1.95万 · 关山秦云路×荷叶山路 · 7月成交168套 · 2028-06交付'},
+    {n:'中建光谷之星', lat:30.5000, lng:114.5130, tier:1, info:'二手高端 · 1.68-1.89万 · 政务中心/小米总部旁 · 高新大道×光谷六路（坐标已修正）'},
+    {n:'联投驿园',     lat:30.4572, lng:114.4432, tier:1, info:'二手刚改 · ≈1.25万 · 11号线直连'},
+    {n:'朗诗里程',     lat:30.4560, lng:114.4455, tier:1, info:'二手刚需 · 8千-1万 · 观察止跌信号=买入信号'},
+    {n:'招商原颂',     lat:30.4985, lng:114.4068, tier:1, info:'新房准四代 · 报价1.6-1.85万(低楼层1.55万起) · 武汉东站旁'},
+    {n:'维佳·关山郡', lat:30.5008, lng:114.4050, tier:1, info:'新房现房 · 1.4万基准 · 地铁口·K11对面'},
+    {n:'保利时代(南/北)', lat:30.4948, lng:114.4095, tier:1, info:'二手学区 · 1.42-1.75万 · 光谷一小+实验'},
+    {n:'中建大公馆',   lat:30.4925, lng:114.4098, tier:1, info:'新房+二手 · 光谷十小+实验 · 四期&二手对比'},
+    // ── 第二梯队 绿（金融港/华科大）──
+    {n:'现代森林小镇', lat:30.4735, lng:114.4168, tier:2, info:'二手学区 · 1.15-1.34万 · 顶级学区+地铁'},
+    {n:'金地·铂翠',    lat:30.4755, lng:114.4162, tier:2, info:'新房四代 · 1.24-1.35万 · 金融港销冠，94-154㎡'},
+    {n:'万科光谷锦曜', lat:30.4748, lng:114.4158, tier:2, info:'二手次新 · 1.46万 · 盯成交量是否放大'},
+    {n:'泛悦城',       lat:30.5170, lng:114.4155, tier:2, info:'二手标杆 · 1.67-1.78万 · 华科大板块最抗跌(预算250万+)'},
+    {n:'琨瑜府',       lat:30.5190, lng:114.4188, tier:2, info:'二手 · 1.65-1.73万 · 华科大学区·品牌次新'},
+    // ── 中心城南 紫（谨慎）──
+    {n:'绿地国际理想城', lat:30.4480, lng:114.4352, tier:3, info:'二手 · 12,400 · 南区主力 · 持有8年+'},
+    {n:'北辰优+',     lat:30.4505, lng:114.4388, tier:3, info:'二手 · 13,300 · 中心城'},
+    {n:'正荣紫阙台',   lat:30.4492, lng:114.4370, tier:3, info:'二手 · 13,100 · ⚠️ 避开南区最南端边缘地块'},
+    // ── 对照 灰（花山）──
+    {n:'联投·花山河',  lat:30.5410, lng:114.4590, tier:4, info:'新房 · 毛坯13-13.5千/精装14-15千 · 花山TOD大盘'},
+    // ── 图2片区 · 在售新面孔 橙 ──
+    {n:'旭辉·千山凌云', lat:30.4870, lng:114.4270, tier:5, info:'高新二路×光谷大道 · 备案2.1万/网易口径1.9万 · 二手1.87-1.98万 · ⚠️容积率5.21偏高'},
+    {n:'联投清能·曼雲天樾', lat:30.5110, lng:114.4180, tier:5, info:'光谷创业街60号 · 1.85-1.86万毛坯 · 112-152㎡ · 联投清能国企'},
+    {n:'融创光谷壹号院', lat:30.4920, lng:114.4180, tier:5, info:'关山大道大盘 · ≈1.75-1.85万 · 2026-11交付转现'},
+    {n:'融创武汉桃花源', lat:30.4865, lng:114.4210, tier:5, info:'合院/别墅 · 500万起 · 改善另类选项'},
+    {n:'华壹公馆',     lat:30.4730, lng:114.4030, tier:5, info:'⚠️图2口径1.2万 · 案名/位置待核'},
+    {n:'南山盘古',     lat:30.4670, lng:114.4000, tier:5, info:'⚠️图2口径8000起 · 三环边低总价 · 待核'},
+    {n:'北岸公馆',     lat:30.4380, lng:114.3860, tier:5, info:'⚠️图2口径1.7万起 · 案名/位置待核（汤逊湖北）'},
+    {n:'南山锦宸',     lat:30.4430, lng:114.3980, tier:5, info:'周店路/渔帆路 · 备案1.06万/总价93-100万(89㎡) · 准现房2026-07交付 · 优:光谷最低总价上车 缺:出核心·去化弱'},
+    {n:'旭辉御府',     lat:30.4950, lng:114.4350, tier:5, info:'⚠️图2口径1.2万起 · 案名待核'},
+    {n:'广电光谷壹',   lat:30.4970, lng:114.4550, tier:5, info:'⚠️图2口径1.2万 · 案名待核'},
+    {n:'城投长悦第府', lat:30.4920, lng:114.4620, tier:5, info:'⚠️图2口径1.08万 · 案名未检索到·签约前到房管局核备案名'},
+    {n:'KIC创新天地·漫序', lat:30.4920, lng:114.5180, tier:5, info:'瑞安+中信泰富 · 光谷六路×高新二路 · 漫序≈1.45万(105/125㎡) · 11号线·KIC PARK商业已开业 · 二手1期1.78万'},
+    {n:'招商天青府',   lat:30.4870, lng:114.5220, tier:5, info:'神墩五路8号 · 1.32-1.45万 · 招商央企·中心城价格洼地'},
+    {n:'香港置地·元庐', lat:30.5080, lng:114.5310, tier:5, info:'高科园路·光谷外校旁 · 贝壳参考2.11万(图2:1.7万为早期口径) · 已交付港资品质'},
+    {n:'中建壹品汉韵公馆', lat:30.5160, lng:114.5230, tier:5, info:'三星巷南·光谷东门户 · ≈1.9万精装四代 · 171㎡大四房'},
+    {n:'驿山高尔夫观岭', lat:30.5270, lng:114.5370, tier:5, info:'九峰低密 · 1.65万起 · 环境好·依赖车行'},
+    {n:'光谷洛伽天玺', lat:30.5030, lng:114.5450, tier:5, info:'⚠️图2口径1.58万 · 案名待核'},
+    {n:'光谷翡丽天玺', lat:30.5000, lng:114.5490, tier:5, info:'⚠️图2口径1.4万 · 案名待核'},
+    {n:'月泊澳居',     lat:30.4930, lng:114.5130, tier:5, info:'⚠️图2口径1.25万起 · 案名识别待核'},
+    {n:'深业维玺谷',   lat:30.5120, lng:114.5210, tier:5, info:'⚠️图2口径1.3万起 · 案名待核'},
+    {n:'招商喻园首',   lat:30.5240, lng:114.5180, tier:5, info:'⚠️图2口径1.2万起 · 案名待核'},
+    {n:'绿城光谷桂府2期', lat:30.4700, lng:114.4940, tier:5, info:'佛祖岭中芯一路 · 1.14-1.35万毛坯 · 准现房(一期现房清尾) · 缺:距地铁远'},
+    {n:'大家·玖宸',   lat:30.4840, lng:114.5420, tier:5, info:'中心城南四代 · 高层1.1万起/均价1.3万 · 叠拼165-175㎡蓄客 · 毛坯 · 2027底-2028交付'},
+    // ── 图2片区 · 待开/待拍地块 玫红 ──
+    {n:'汉成·光谷广场项目(P063地王)', lat:30.5140, lng:114.4090, tier:6, info:'原华烁科技旧址 · 8·21土拍122轮 楼面价14,738元/㎡ 光谷新地王 · 低密小而精 · 预测2.0-2.2万 · ⚠️十堰民企首进核心'},
+    {n:'光谷广场三合项目(P032)', lat:30.5170, lng:114.4060, tier:6, info:'步行街旁 · 6月三合集团(武汉鼎源)2.885亿竞得 · 楼面价11,169 · 预测1.7-1.9万'},
+    {n:'汽车社区地块(未拍)', lat:30.5200, lng:114.4040, tier:6, info:'光谷广场北 · 待拍'},
+    {n:'金域花园地块(未拍)', lat:30.5115, lng:114.4065, tier:6, info:'光谷广场南 · 待拍'},
+    {n:'中建壹品·光谷元著', lat:30.4940, lng:114.5080, tier:6, info:'高新二路×清湾路 · 央企毛坯四代100-157㎡ · 预计2026-09开盘/2028-05交付 · 预测1.4-1.6万(对标漫序1.45万)'},
+    {n:'国华·光谷华府', lat:30.4790, lng:114.5430, tier:6, info:'流芳园横路×豹溪路 · 13栋764户户均147㎡真四代带空中花园 · 楼面价7975 · 预测1.4-1.7万 · 国华科创(东湖高新国资系)+远洋建管'},
+    {n:'光谷地产·金地铂樾', lat:30.4580, lng:114.4650, tier:6, info:'光谷建设国资+金地代建 · 关联P(2025)179楼面价6900 · 预测1.2-1.35万(对标铂翠) · ⚠️位置信息不透明'},
+    {n:'城投绿城·雲庐', lat:30.4910, lng:114.5410, tier:6, info:'豹溪路×南新街 · 低密叠墅/板楼 · 放风1.8万起 · 绿城代建'},
+    {n:'湖北科投·宜居有嘉', lat:30.4870, lng:114.5410, tier:6, plan:true, info:'高新三路南·月荷路西 · 一期8栋725户五代宅 · 90-130㎡ · 预测毛坯1.1-1.4万 · 约2028交付 · 点击标记看楼栋分布图'},
+    {n:'宜居南著(待核)', lat:30.4820, lng:114.5240, tier:6, info:'⚠️宜居系新地块·案名待核 · 待定'},
+    {n:'光谷地产·汤逊湖项目', lat:30.4470, lng:114.3830, tier:6, info:'华师一附中西侧·汤逊湖北岸 · 光谷地产(光谷建设全资) · 待定新盘 · 预测1.2-1.5万(低置信)'},
+    {n:'光谷宜X地块(待核)', lat:30.4790, lng:114.5520, tier:6, info:'⚠️图2案名识别不清 · 中心城东南待定地块'}
   ];
   try{
-    var map=new TMap.Map('ch-map',{center:new TMap.LatLng(30.485,114.428),zoom:13,viewMode:'2D'});
+    var map=new TMap.Map('ch-map',{center:new TMap.LatLng(30.49,114.46),zoom:12,viewMode:'2D'});
     // 自适应视野：包含所有楼盘
     var bounds=new TMap.LatLngBounds();
     P.forEach(function(p){ bounds.extend(new TMap.LatLng(p.lat,p.lng)); });
@@ -606,7 +771,9 @@ function chartMap(){
       t1:new TMap.MarkerStyle({width:26,height:34,color:'#2563eb',anchor:{x:13,y:34}}),
       t2:new TMap.MarkerStyle({width:26,height:34,color:'#16a34a',anchor:{x:13,y:34}}),
       t3:new TMap.MarkerStyle({width:26,height:34,color:'#8b5cf6',anchor:{x:13,y:34}}),
-      t4:new TMap.MarkerStyle({width:22,height:30,color:'#94a3b8',anchor:{x:11,y:30}})
+      t4:new TMap.MarkerStyle({width:22,height:30,color:'#94a3b8',anchor:{x:11,y:30}}),
+      t5:new TMap.MarkerStyle({width:24,height:32,color:'#f59e0b',anchor:{x:12,y:32}}),
+      t6:new TMap.MarkerStyle({width:24,height:32,color:'#e11d48',anchor:{x:12,y:32}})
     };
     var geos=P.map(function(p,i){
       var sid='t'+p.tier;
@@ -614,13 +781,16 @@ function chartMap(){
     });
     var marker=new TMap.MultiMarker({map:map,styles:styles,geometries:geos});
 
-    // 标签（楼盘名）
+    // 标签（楼盘名）：核心梯队大标签，图2新标的用小标签
     var labelGeos=P.map(function(p,i){
-      return {id:'l'+i, styleId:'default', position:new TMap.LatLng(p.lat,p.lng), content:p.n};
+      return {id:'l'+i, styleId:p.tier>=5?'small':'default', position:new TMap.LatLng(p.lat,p.lng), content:p.n};
     });
     new TMap.MultiLabel({
       map:map,
-      styles:{ default:new TMap.LabelStyle({color:'#0f172a',size:11,offset:{x:16,y:-12},strokeColor:'#ffffff',strokeWidth:2,backgroundColor:'rgba(255,255,255,0.85)',borderColor:'#cbd5e1',borderWidth:1,padding:{top:2,bottom:2,left:4,right:4}}) },
+      styles:{
+        default:new TMap.LabelStyle({color:'#0f172a',size:11,offset:{x:16,y:-12},strokeColor:'#ffffff',strokeWidth:2,backgroundColor:'rgba(255,255,255,0.85)',borderColor:'#cbd5e1',borderWidth:1,padding:{top:2,bottom:2,left:4,right:4}}),
+        small:new TMap.LabelStyle({color:'#334155',size:10,offset:{x:14,y:-10},strokeColor:'#ffffff',strokeWidth:2,backgroundColor:'rgba(255,255,255,0.78)',borderColor:'#e2e8f0',borderWidth:1,padding:{top:1,bottom:1,left:3,right:3}})
+      },
       geometries:labelGeos
     });
 
@@ -629,6 +799,7 @@ function chartMap(){
     marker.on('click',function(e){
       var geo=e.geometry;
       var p=P[parseInt(geo.id.slice(1))];
+      if(p.plan){ showPlan(); return; }   // 宜居有嘉：直接弹楼栋分布图
       info.open();
       info.setPosition(new TMap.LatLng(p.lat,p.lng));
       info.update({content:'<div style="padding:6px 4px;max-width:260px;"><div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:3px;">'+p.n+'</div><div style="font-size:12px;color:#475569;line-height:1.5;">'+p.info+'</div></div>'});
@@ -683,6 +854,10 @@ function initMapIfNeeded(){
   if(window.TMap){ chartMap(); }
   else{ var t=setInterval(function(){ if(window.TMap){ clearInterval(t); chartMap(); } },200); setTimeout(function(){ clearInterval(t); },5000); }
 }
+
+/* ---- 宜居有嘉 楼栋分布弹窗 ---- */
+function showPlan(){ el('planMask').classList.add('on'); }
+function hidePlan(){ el('planMask').classList.remove('on'); }
 
 /* ============ 标签页切换（支持 # 锚点直达） ============ */
 var tabs=document.querySelectorAll('.tab');
